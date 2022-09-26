@@ -1,0 +1,484 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+{% block head %}
+<head>
+    
+    <!-- metas -->
+    <meta charset="utf-8" />
+    <meta name="author" content="Chitrakoot Web" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="Car Service & Repair HTML Template" />
+    <meta name="description" content="Motors - Car Service & Repair HTML Template" />
+
+    <!-- title  -->
+    <title>Motors - Car Service & Repair HTML Template</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'img/logos/favicon.jpeg' %}" />
+    <link rel="apple-touch-icon" href="{% static 'img/logos/apple-touch-icon-57x57.png' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/logos/apple-touch-icon-72x72.png' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/logos/apple-touch-icon-114x114.png' %}" />
+
+    <!-- plugins -->
+    <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+
+    <!-- search css -->
+    <link rel="stylesheet" href="{% static 'search/search.css' %}">
+
+    <!-- quform css -->
+    <link rel="stylesheet" href="{% static 'quform/css/base.css' %}">
+
+    <!-- theme core css -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
+    <!-- custom css -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+</head>
+{% endblock head %}
+
+<body>
+    
+    <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+    <div id="loading" style="display: none;">
+        <section style="width: 100%; height: 100%">
+            <div class="container" style="height: 100%">
+                <div class="row justify-content-center align-items-center" style="height: 10%">
+                    <p style="color: black;">Ищем информацию об авто. Может занять несколько минут...</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper">
+
+        <!-- HEADER
+        ================================================== -->
+        {% block header %}
+        <header class="header-style1 menu_area-light">
+
+            <div class="navbar-default border-bottom border-color-light-white">
+                <div class="container-fluid px-sm-2-9">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-12">
+                            <div class="menu_area alt-font">
+                                <nav class="navbar navbar-expand-lg navbar-light p-0">
+
+                                    <div class="navbar-header navbar-header-custom">
+                                        <!-- start logo -->
+                                        <a href="{% url 'home' %}" class="navbar-brand"><img id="logo" src="{% static 'img/logos/logo.jpeg' %}" alt="logo"></a>
+                                        <!-- end logo -->
+                                    </div>
+
+                                    <div class="navbar-toggler"></div>
+
+                                    <!-- menu area -->
+                                    <ul class="navbar-nav align-items-lg-center ms-auto" id="nav" style="display: none;">
+                                        <li><a href="{% url 'home' %}">Главная</a></li>
+                                        <li>
+                                            <a href="#!">Страницы</a>
+                                            <ul>
+                                                <li><a href="about.html">About Us</a></li>
+                                                <li><a href="services.html">Our Services</a></li>
+                                                <li><a href="our-history.html">Our History</a></li>
+                                                <li><a href="our-team.html">Our Team</a></li>
+                                                <li><a href="testimonials.html">Testimonials</a></li>
+                                                <li><a href="pricing.html">Pricing</a></li>
+                                                <li><a href="faq.html">FAQ</a></li>
+                                                <li>
+                                                    <a href="#!">Others</a>
+                                                    <ul>
+                                                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                                        <li><a href="terms-and-conditions.html">Terms And Conditions</a></li>
+                                                        <li><a href="coming-soon.html">Coming Soon</a></li>
+                                                        <li><a href="404.html">404 Page</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#!">Новости</a>
+                                            <ul>
+                                                <li><a href="blog-grid.html">Blog Grid</a></li>
+                                                <li><a href="blog-list.html">Blog List</a></li>
+                                                <li><a href="blog-detail.html">Blog Detail</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#!">FAQ</a>
+                                            <ul class="row megamenu">
+                                                <li class="col-lg-3 col-sm-12">
+                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 01</span>
+                                                    <ul>
+                                                        <li><a href="accordion.html"><i class="fas fa-sliders-h me-2"></i>Accordion</a></li>
+                                                        <li><a href="alerts.html"><i class="far fa-bell me-2"></i>Alerts</a></li>
+                                                        <li><a href="blockquotes.html"><i class="fas fa-vector-square me-2"></i>Blockquotes</a></li>
+                                                        <li><a href="buttons.html"><i class="fas fa-link me-2"></i>Buttons</a></li>
+                                                        <li><a href="call-to-action.html"><i class="far fa-square me-2"></i>Call to Action</a></li>
+                                                        <li><a href="carousel-slider.html"><i class="far fa-images me-2"></i>Carousel Slider</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="col-lg-3 col-sm-12">
+                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 02</span>
+                                                    <ul>
+                                                        <li><a href="count-down.html"><i class="far fa-flag me-2"></i>Count Down</a></li>
+                                                        <li><a href="counters.html"><i class="fas fa-compress me-2"></i>Counters</a></li>
+                                                        <li><a href="dropcaps.html"><i class="far fa-closed-captioning me-2"></i>Dropcaps</a></li>
+                                                        <li><a href="forms.html"><i class="fab fa-wpforms me-2"></i>Forms</a></li>
+                                                        <li><a href="font-icons.html"><i class="far fa-check-square me-2"></i>Font Icons</a></li>
+                                                        <li><a href="google-map.html"><i class="fas fa-map-marker-alt me-2"></i>Google Map</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="col-lg-3 col-sm-12">
+                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 03</span>
+                                                    <ul>
+                                                        <li><a href="grid-system.html"><i class="fas fa-th me-2"></i>Grid System</a></li>
+                                                        <li><a href="highlights.html"><i class="fas fa-highlighter me-2"></i>Highlights</a></li>
+                                                        <li><a href="icon-with-text.html"><i class="fab fa-fonticons-fi me-2"></i>Icon With Text</a></li>
+                                                        <li><a href="list-styles.html"><i class="fas fa-list-ul me-2"></i>List Styles</a></li>
+                                                        <li><a href="media-object.html"><i class="fas fa-photo-video me-2"></i>Media Object</a></li>
+                                                        <li><a href="modal.html"><i class="fas fa-expand me-2"></i>Modal</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="col-lg-3 col-sm-12">
+                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 04</span>
+                                                    <ul>
+                                                        <li><a href="pagination.html"><i class="far fa-caret-square-right me-2"></i>Pagination</a></li>
+                                                        <li><a href="progress-bars.html"><i class="fas fa-tasks me-2"></i>Progress Bars</a></li>
+                                                        <li><a href="tables.html"><i class="fas fa-table me-2"></i>Tables</a></li>
+                                                        <li><a href="tabs.html"><i class="fas fa-sliders-h me-2"></i>Tabs</a></li>
+                                                        <li><a href="typography.html"><i class="fas fa-text-height me-2"></i>Typography</a></li>
+                                                        <li><a href="videos.html"><i class="fas fa-video me-2"></i>Videos</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="contact.html">Контакты</a></li>
+                                    </ul>
+                                    <!-- end menu area -->
+
+                                    <!-- start attribute navigation -->
+                                    <div class="attr-nav align-items-lg-center ms-lg-auto">
+                                        {% if request.user.is_authenticated %}
+                                        <ul><li><a href="{% url 'lk' %}" style="text-decoration: underline; color: orange;">{{ request.user }}</a></li></ul>
+                                        <ul>
+                                            <li class="d-none d-xl-inline-block"><a href="{% url 'logout' %}" class="butn primary md text-white">Выйти</a></li>
+                                        </ul>
+                                        {% else %}
+                                        <ul>
+                                            <li class="d-none d-xl-inline-block"><a href="{% url 'login' %}" class="butn primary md text-white">Войти</a></li>
+                                        </ul>
+                                        {% endif %}
+                                    </div>
+                                    <!-- end attribute navigation -->
+
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        {% endblock header %}
+
+        <!-- BANNER
+        ================================================== -->
+        {% block banner %}
+        <div class="top-position1 z-index-1">
+            <div class="slider-fade banner1">
+                <div class="owl-carousel owl-theme w-100">
+                    <div class="text-left item bg-img" data-overlay-dark="5" data-background="{% static 'img/banner/main.jpg' %}">
+                        <div class="container h-100">
+                            <div class="d-table h-100 w-100">
+                                <div class="d-table-cell align-middle caption">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-9">
+                                            <div class="banner-content">
+                                                <h1 style="color: white;">Проверить автомобиль по ВИН</h1>
+                                                <form method="post" id="form-input-mainnn">
+                                                <div>
+                                                    {% csrf_token %}
+                                                    <div class="form-check form-check-inline">
+                                                      <input class="form-check-input" type="radio" name="select" id="inlineRadio1" value="VIN" checked>
+                                                      <label class="form-check-label" for="inlineRadio1" style="color: white;">Проверить по VIN</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                      <input class="form-check-input" type="radio" name="reject" id="inlineRadio2" value="GOS">
+                                                      <label class="form-check-label" for="inlineRadio2" style="color: white;">Проверить по госномеру</label>
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="forminnumber" placeholder="1ABCD12345EF26789" id="entervalue" required>
+                                                        <button class="butn butn-outline-secondary butn-white-hover" type="submit" onclick="sendReportRequest()">Поверить авто</button>
+                                                    </div>
+                                                 </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock banner %}
+        {% block body %}
+
+        {% endblock body %}
+        <!-- EXTRA
+        ================================================== -->
+        {% block contacts %}
+        <div class="section-full">
+            <div class="row g-0 wow fadeInUp" data-wow-delay="100ms">
+                <div class="col-lg-6">
+                    <div class="support-box">
+                        <i class="ti-email"></i>
+                        <h3 class="text-white z-index-1 mb-0">support@reportcar.ru</h3>
+                    </div>
+                </div>
+<!--                <div class="col-lg-4">-->
+<!--                    <div class="support-box">-->
+<!--&lt;!&ndash;                        <i class="ti-user"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h3 class="text-white z-index-1 mb-0">Phone: (+44) 123 456 789</h3>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col-lg-6">
+                    <div class="support-box">
+                        <i class="ti-headphone-alt"></i>
+                        <h3 class="text-white z-index-1 mb-0">Поддержка 24 часа</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock contacts %}
+
+        <!-- FOOTER
+        ================================================== -->
+        {% block footer %}
+        <footer>
+            <div class="container">
+                <div class="row mb-6 mt-n2-6">
+                    <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="200ms">
+                        <div class="mb-1-6 mb-lg-1-9 footer-logo">
+                            <img src="img/logos/footer-light-logo.png" alt="...">
+                        </div>
+                        <p class="mb-1-6 mb-lg-1-9 text-white">
+                            Motores gives you all elements which are necessary for your design goals.
+                        </p>
+                        <ul class="address-list">
+                            <li><span class="fa fa-home pe-3 text-white"></span><a href="#!">174 Guild Street, Town MT.</a></li>
+                            <li><span class="fa fa-phone pe-3 text-white"></span><a href="#!">(+44) 123 456 7892</a></li>
+                            <li><span class="fa fa-envelope pe-3 text-white"></span><a href="#!">example@yourmail.com</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="400ms">
+                        <div class="ps-sm-1-9 ps-xl-2-5">
+                            <h3 class="h5 text-white text-capitalize">Working hours</h3>
+                            <div class="mb-1-6 mb-lg-1-9">
+                                <div class="separator"></div>
+                            </div>
+                            <ul class="footer-hour-list">
+                                <li>
+                                    <i class="ti-time text-white"></i>
+                                    <div>
+                                        <h4 class="display-29 font-weight-500 text-white">Monday - Friday</h4>
+                                        <p class="mb-0 text-white display-30">8:00 AM - 5:00 PM</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="ti-time text-white"></i>
+                                    <div>
+                                        <h4 class="display-29 font-weight-500 text-white">Saturday</h4>
+                                        <p class="mb-0 text-white display-30">9:00 AM - 4:00 PM</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="ti-time text-white"></i>
+                                    <div>
+                                        <h4 class="display-29 font-weight-500 text-white">Sunday</h4>
+                                        <p class="mb-0 text-white display-30">Closed</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="600ms">
+                        <div class="ps-lg-1-9 ps-xl-2-5">
+                            <h3 class="h5 text-white text-capitalize">Services</h3>
+                            <div class="mb-1-6 mb-lg-1-9">
+                                <div class="separator"></div>
+                            </div>
+                            <ul class="footer-list-style1">
+                                <li><a href="engine-diagnostics.html">Engine Diagnostics</a></li>
+                                <li><a href="oil-filters.html">Oil & Filters</a></li>
+                                <li><a href="brake-repair.html">Brake Repair</a></li>
+                                <li><a href="wheel-alignment.html">Wheel Alignment</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="800ms">
+                        <div class="ps-sm-1-9 ps-xl-2-5">
+                            <h3 class="h5 text-white text-capitalize">Our News Letter</h3>
+                            <div class="mb-1-6 mb-lg-1-9">
+                                <div class="separator"></div>
+                            </div>
+                            <p class="text-white mb-1-6 mb-lg-1-9">You can get latest update from Subscribing to our News Letter</p>
+                            <form class="quform newsletter-footer" action="quform/newsletter-two.php" method="post" enctype="multipart/form-data" onclick="">
+
+                                <div class="quform-elements">
+
+                                    <div class="row">
+
+                                        <!-- Begin Text input element -->
+                                        <div class="col-md-12">
+                                            <div class="quform-element">
+                                                <div class="quform-input">
+                                                    <input class="form-control" id="email_address" type="text" name="email_address" placeholder="Subscribe with us" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Text input element -->
+
+                                        <!-- Begin Submit button -->
+                                        <div class="col-md-12">
+                                            <div class="quform-submit-inner">
+                                                <button class="btn btn-white text-primary m-0 px-2" type="submit"><i class="fas fa-paper-plane"></i></button>
+                                            </div>
+                                            <div class="quform-loading-wrap"><span class="quform-loading"></span></div>
+                                        </div>
+                                        <!-- End Submit button -->
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-n4">
+                    <div class="col-sm-6 col-lg-3 mt-4 wow fadeIn" data-wow-delay="200ms">
+                        <div>
+                            <a href="#!" class="footer-social-icon"><i class="fab fa-facebook-f"></i>Facebook</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-4 wow fadeIn" data-wow-delay="400ms">
+                        <div>
+                            <a href="#!" class="footer-social-icon"><i class="fab fa-twitter"></i>Twitter</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-4 wow fadeIn" data-wow-delay="600ms">
+                        <div>
+                            <a href="#!" class="footer-social-icon"><i class="fab fa-youtube"></i>Youtube</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 mt-4 wow fadeIn" data-wow-delay="800ms">
+                        <div>
+                            <a href="#!" class="footer-social-icon"><i class="fab fa-linkedin-in"></i>Linkedin</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bar borders-top border-color-light-white">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p class="d-inline-block text-white mb-0">&copy; <span class="current-year"></span> Motors Powered by <a href="#!" class="text-primary white-hover">Chitrakoot Web</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        {% endblock footer %}
+
+    </div>
+
+    <!-- SCROLL TO TOP
+    ================================================== -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+
+    <!-- all js include start -->
+    {% block scripts %}
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+    <!-- popper js -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+
+    <!-- bootstrap -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- search -->
+    <script src="{% static 'search/search.js' %}"></script>
+
+    <!-- navigation -->
+    <script src="{% static 'js/nav-menu.js' %}"></script>
+
+    <!-- tab -->
+    <script src="{% static 'js/easy.responsive.tabs.js' %}"></script>
+
+    <!-- owl carousel -->
+    <script src="{% static 'js/owl.carousel.js' %}"></script>
+
+    <!-- jquery.counterup.min -->
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+
+    <!-- stellar js -->
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+
+    <!-- waypoints js -->
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+
+    <!-- countdown js -->
+    <script src="{% static 'js/countdown.js' %}"></script>
+
+    <!-- wow js -->
+    <script src="{% static 'js/wow.js' %}"></script>
+
+    <!-- jquery.magnific-popup js -->
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+
+    <!-- lightgallery js -->
+    <script src="{% static 'js/lightgallery-all.js' %}"></script>
+
+    <!-- mousewheel js -->
+    <script src="{% static 'js/jquery.mousewheel.min.js' %}"></script>
+
+    <!-- isotope.pkgd.min js -->
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+
+    <!--  clipboard js -->
+    <script src="{% static 'js/clipboard.min.js' %}"></script>
+
+    <!--  prism js -->
+    <script src="{% static 'js/prism.js' %}"></script>
+
+    <!-- custom scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- form plugins js -->
+    <script src="{% static 'quform/js/plugins.js' %}"></script>
+
+    <!-- form scripts js -->
+    <script src="{% static 'quform/js/scripts.js' %}"></script>
+
+    <!-- all js include end -->
+    {% endblock scripts %}
+
+    {% block extrascripts %}
+    {% endblock extrascripts %}
+</body>
+
+</html>

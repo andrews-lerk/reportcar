@@ -1,0 +1,46 @@
+.bd-callout-danger {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    background-color: rgb(229 49 67 / 8%);
+    border-left: 0.25rem solid var(--bd-callout-border, var(--bs-gray-300));
+    border-left-width: ;
+    border-left-style: ;
+    border-left-color: rgb(209 37 53 / 50%);
+}
+
+.bd-callout-success {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    background-color: rgb(92 243 118 / 20%);
+    border-left: 0.25rem solid var(--bd-callout-border, var(--bs-gray-300));
+    border-left-width: ;
+    border-left-style: ;
+    border-left-color: rgb(100 235 31 / 50%);
+}
+
+.bd-callout-warning {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    background-color: rgb(247 231 45 / 25%);
+    border-left: 0.25rem solid var(--bd-callout-border, var(--bs-gray-300));
+    border-left-width: ;
+    border-left-style: ;
+    border-left-color: rgb(239 212 22 / 50%);
+}
+
+#loading {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 999999;
+    transition: 0.3s ease opacity;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
