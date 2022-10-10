@@ -4,10 +4,15 @@
 {% block header_style %}
     <header class="header-style">
 {% endblock %}
+{% block logo %}
+    <div class="navbar-header navbar-header-custom">
+        <!-- start logo -->
+        <a href="{% url 'home' %}" class="navbar-brand-custom"><img id="logo" src="{% static 'img/logos/logo-dark.gif' %}" alt="logo"></a>
+        <!-- end logo -->
+    </div>
+{% endblock logo %}
 {% block navigation %}
     <div class="attr-nav align-items-lg-center ms-lg-auto">
-        <ul>
-        </ul>
     </div>
 {% endblock navigation %}
 
