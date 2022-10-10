@@ -15,14 +15,15 @@ from .models import Vehicle, \
     VinDecode, \
     Image
 from profiles.models import Profiles
+from django.core.mail import send_mail
+from config.settings import EMAIL_HOST_USER, API_CLOUD_TOKEN as TOKEN
 
-def get_restrict_car_info(request, type, number):
+
+def get_restrict_car_info(type, number):
     if type == 'VIN':
         type = 'vin'
     else:
         type = 'regNumber'
-
-    TOKEN = 'ae3b2fa0e7d3f7dec39b99cb59421e81'
 
     result = {}
 
@@ -42,9 +43,13 @@ def get_restrict_car_info(request, type, number):
                                           f'&vin={vin}'
                                           f'&token={TOKEN}')
             gibdd_data = gibdd_response.json()
-            result['model'] = gibdd_data['vehicle']['model']
-            result['color'] = gibdd_data['vehicle']['color']
-            result['year'] = gibdd_data['vehicle']['year']
+            try:
+                result['message'] = gibdd_data['message']
+                return result
+            except:
+                result['model'] = gibdd_data['vehicle']['model']
+                result['color'] = gibdd_data['vehicle']['color']
+                result['year'] = gibdd_data['vehicle']['year']
 
     elif type == 'vin':
         vin = number
@@ -63,13 +68,12 @@ def get_restrict_car_info(request, type, number):
 
     return result
 
-def create_car_info(request, type, number):
+
+def create_car_info(protocol, host, email, type, number):
     if type == 'VIN':
         type = 'vin'
     else:
         type = 'regNumber'
-
-    TOKEN = 'ae3b2fa0e7d3f7dec39b99cb59421e81'
 
     errors = {}
     messages = {}
@@ -86,10 +90,10 @@ def create_car_info(request, type, number):
         pass
 
     if type == 'vin':
-        vin = number
+        vin = rsa_data['rez'][0]['vin']
         regnum = rsa_data['rez'][0]['regnum']
     else:
-        regnum = number
+        regnum = rsa_data['rez'][0]['regnum']
         vin = rsa_data['rez'][0]['vin']
 
     gibdd_response = requests.get('https://api-cloud.ru/api/gibdd.php?'
@@ -105,7 +109,7 @@ def create_car_info(request, type, number):
         pass
 
     vehicle = Vehicle(
-        profile=Profiles.object.get(email=request.user),
+        profile=Profiles.object.get(email=email),
 
         vin=vin,
         gos_number=regnum,
@@ -396,6 +400,11 @@ def create_car_info(request, type, number):
                 vehicle=vehicle,
 
                 img=url['bigPhoto']
-                )
+            )
             pic.save()
+    vehicle.is_full_report = True
+    vehicle.save()
+    message = f'{protocol}{host}{vehicle.get_absolute_url()}'
+    send_mail(subject=f'{vehicle.model} - отчет готов!', message=message,
+              from_email=EMAIL_HOST_USER, recipient_list=[email], fail_silently=True)
     return messages, errors, vehicle

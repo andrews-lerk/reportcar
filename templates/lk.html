@@ -1,224 +1,102 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block header %}
-        <header class="header-style">
-
-            <div class="navbar-default border-bottom">
-
-                <!-- start top search -->
-                <div class="top-search bg-primary">
-                    <div class="container-fluid px-sm-1-6 px-lg-2-9">
-                        <form class="search-form" action="search.html" method="GET" accept-charset="utf-8">
-                            <div class="input-group">
-                                <span class="input-group-addon cursor-pointer">
-                                    <button class="search-form_submit fas fa-search text-white" type="submit"></button>
-                                </span>
-                                <input type="text" class="search-form_input form-control" name="s" autocomplete="off" placeholder="Type & hit enter...">
-                                <span class="input-group-addon close-search mt-2"><i class="fas fa-times"></i></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- end top search -->
-
-                <div class="container-fluid px-sm-2-9">
-                    <div class="row align-items-center">
-                        <div class="col-12 col-lg-12">
-                            <div class="menu_area alt-font">
-                                <nav class="navbar navbar-expand-lg navbar-light p-0">
-
-                                    <div class="navbar-header navbar-header-custom">
-                                        <!-- start logo -->
-                                        <a href="index.html" class="navbar-brand"><img id="logo" src="{% static 'img/logos/logo-inner.png' %}" alt="logo"></a>
-                                        <!-- end logo -->
-                                    </div>
-
-                                    <div class="navbar-toggler"></div>
-
-                                    <!-- menu area -->
-                                    <ul class="navbar-nav align-items-lg-center ms-auto" id="nav" style="display: none;">
-                                        <li><a href="{% url 'home' %}">Главная</a></li>
-                                        <li>
-                                            <a href="#!">Страницы</a>
-                                            <ul>
-                                                <li><a href="about.html">About Us</a></li>
-                                                <li><a href="services.html">Our Services</a></li>
-                                                <li><a href="our-history.html">Our History</a></li>
-                                                <li><a href="our-team.html">Our Team</a></li>
-                                                <li><a href="testimonials.html">Testimonials</a></li>
-                                                <li><a href="pricing.html">Pricing</a></li>
-                                                <li><a href="faq.html">FAQ</a></li>
-                                                <li>
-                                                    <a href="#!">Others</a>
-                                                    <ul>
-                                                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                                        <li><a href="terms-and-conditions.html">Terms And Conditions</a></li>
-                                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                                        <li><a href="404.html">404 Page</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#!">Новости</a>
-                                            <ul>
-                                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="blog-list.html">Blog List</a></li>
-                                                <li><a href="blog-detail.html">Blog Detail</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#!">FAQ</a>
-                                            <ul class="row megamenu">
-                                                <li class="col-lg-3 col-sm-12">
-                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 01</span>
-                                                    <ul>
-                                                        <li><a href="accordion.html"><i class="fas fa-sliders-h me-2"></i>Accordion</a></li>
-                                                        <li><a href="alerts.html"><i class="far fa-bell me-2"></i>Alerts</a></li>
-                                                        <li><a href="blockquotes.html"><i class="fas fa-vector-square me-2"></i>Blockquotes</a></li>
-                                                        <li><a href="buttons.html"><i class="fas fa-link me-2"></i>Buttons</a></li>
-                                                        <li><a href="call-to-action.html"><i class="far fa-square me-2"></i>Call to Action</a></li>
-                                                        <li><a href="carousel-slider.html"><i class="far fa-images me-2"></i>Carousel Slider</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-lg-3 col-sm-12">
-                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 02</span>
-                                                    <ul>
-                                                        <li><a href="count-down.html"><i class="far fa-flag me-2"></i>Count Down</a></li>
-                                                        <li><a href="counters.html"><i class="fas fa-compress me-2"></i>Counters</a></li>
-                                                        <li><a href="dropcaps.html"><i class="far fa-closed-captioning me-2"></i>Dropcaps</a></li>
-                                                        <li><a href="forms.html"><i class="fab fa-wpforms me-2"></i>Forms</a></li>
-                                                        <li><a href="font-icons.html"><i class="far fa-check-square me-2"></i>Font Icons</a></li>
-                                                        <li><a href="google-map.html"><i class="fas fa-map-marker-alt me-2"></i>Google Map</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-lg-3 col-sm-12">
-                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 03</span>
-                                                    <ul>
-                                                        <li><a href="grid-system.html"><i class="fas fa-th me-2"></i>Grid System</a></li>
-                                                        <li><a href="highlights.html"><i class="fas fa-highlighter me-2"></i>Highlights</a></li>
-                                                        <li><a href="icon-with-text.html"><i class="fab fa-fonticons-fi me-2"></i>Icon With Text</a></li>
-                                                        <li><a href="list-styles.html"><i class="fas fa-list-ul me-2"></i>List Styles</a></li>
-                                                        <li><a href="media-object.html"><i class="fas fa-photo-video me-2"></i>Media Object</a></li>
-                                                        <li><a href="modal.html"><i class="fas fa-expand me-2"></i>Modal</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-lg-3 col-sm-12">
-                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 04</span>
-                                                    <ul>
-                                                        <li><a href="pagination.html"><i class="far fa-caret-square-right me-2"></i>Pagination</a></li>
-                                                        <li><a href="progress-bars.html"><i class="fas fa-tasks me-2"></i>Progress Bars</a></li>
-                                                        <li><a href="tables.html"><i class="fas fa-table me-2"></i>Tables</a></li>
-                                                        <li><a href="tabs.html"><i class="fas fa-sliders-h me-2"></i>Tabs</a></li>
-                                                        <li><a href="typography.html"><i class="fas fa-text-height me-2"></i>Typography</a></li>
-                                                        <li><a href="videos.html"><i class="fas fa-video me-2"></i>Videos</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Контакты</a></li>
-                                    </ul>
-                                    <!-- end menu area -->
-
-                                    <!-- start attribute navigation -->
-                                    <div class="attr-nav align-items-lg-center ms-lg-auto">
-                                        <ul>
-                                            <li class="d-none d-xl-inline-block"><a href="{% url 'logout' %}" class="butn primary md text-white">Выйти</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- end attribute navigation -->
-
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </header>
-        {% endblock header %}
+{% block header_style %}
+    <header class="header-style">
+{% endblock %}
+{% block logo %}
+    <div class="navbar-header navbar-header-custom">
+        <!-- start logo -->
+        <a href="{% url 'home' %}" class="navbar-brand-custom"><img id="logo" src="{% static 'img/logos/logo-dark.gif' %}" alt="logo"></a>
+        <!-- end logo -->
+    </div>
+{% endblock logo %}
+{% block navigation %}
+    <div class="attr-nav align-items-lg-center ms-lg-auto">
+        <ul>
+            <li><a href="{% url 'logout' %}" style="text-decoration: underline; color: orange;">Выйти</a></li>
+        </ul>
+    </div>
+{% endblock navigation %}
 
 {% block banner %}
 {% endblock banner %}
 
 {% block body %}
 <section>
-            <div class="container">
-                <div class="row">
-                    <!-- service left -->
-                    <div class="col-lg-4 order-2 order-lg-1">
-                        <div class="service-details-sidebar pe-lg-1-6 pe-xl-1-9">
-                            <aside class="widget widget-nav-menu wow fadeIn" data-wow-delay="200ms" style="visibility: visible; animation-delay: 200ms; animation-name: fadeIn;">
-                                <h4 class="widget-title">Личный кабинет<br>{{ request.user }}</h4>
-                                <ul>
-                                    <li><a href="general-service.html"><i class="fas fa-cog pe-3"></i>Сменить пароль</a></li>
-                                </ul>
-                            </aside>
-                            <aside class="widget widget-address wow fadeIn" data-wow-delay="300ms" style="visibility: visible; animation-delay: 300ms; animation-name: fadeIn;">
-                                <h4 class="widget-title">Мои подписки</h4>
-                                <ul class="address-info">
-                                    <li>
-                                        <a href="#!">6 месяцев<br>Истекает: 28.11.2022</a>
-                                    </li>
-                                </ul>
-                                <div class="quform-submit-inner">
-                                    <p></p>
-                                    <button class="butn butn-style1 sm" type="submit"><span>Управлять подпиской</span></button>
-                                    </div>
-                            </aside>
-<!--                            <aside class="widget widget-brochure mb-0 wow fadeIn" data-wow-delay="400ms" style="visibility: visible; animation-delay: 400ms; animation-name: fadeIn;">-->
-<!--                                <h4 class="widget-title">История проверок авто</h4>-->
-<!--                                <ul>-->
-<!--                                    <li>-->
-<!--                                        <a href="#!"><i class="far fa-file-alt"></i>Lamborghini huracan</a>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                                <div class="quform-submit-inner">-->
-<!--                                    <p></p>-->
-<!--                                    <button class="butn butn-style1 sm" type="submit"><span>Посмотреть все</span></button>-->
-<!--                                    </div>-->
-<!--                            </aside>-->
-                        </div>
-                    </div>
-                    <!-- end service left -->
-
-                    <!-- service right -->
-                    <div class="col-lg-8 order-1 order-lg-2 mb-2-2 mb-lg-0">
-                        <h1 style="color: black;">Проверить автомобиль по ВИН</h1>
-                                            <div>
-                                                <form>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="VIN" checked>
-                                                        <label class="form-check-label" for="VIN" style="color: black;">Проверить по VIN</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="GOS">
-                                                        <label class="form-check-label" for="GOS" style="color: black;">Проверить по госномеру</label>
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="1ABCD12345EF26789" id="inputnumber1">
-                                                        <button class="butn butn-outline-secondary butn-white-hover" type="button" id="button-addon2">Поверить авто</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                        <h2 style="color: black;">История проверок</h2>
-                        {% for report in reports %}
-                        <div class="d-flex">
-    <div class="flex-grow-1 ms-3">
-        <h4 class="mt-0 mb-2 h5">{{ report.model }}</h4>
-        <p>{{ report.gos_number }}<br><u><a href="{{ report.get_absolute_url }}">Просмотреть весь отчет</a></u></p>
-    </div>
-</div>
-                        {% endfor %}
-                        <div>
-                                    <p></p>
-                                    <button class="butn butn-outline-secondary butn-white-hover" type="submit"><span>Посмотреть всю историю</span></button>
-                                    </div>
-                    </div>
-                    <!-- end service right -->
+    <div class="container">
+        <div class="row">
+            <!-- service left -->
+            <div class="col-lg-4 order-2 order-lg-1">
+                <div class="service-details-sidebar pe-lg-1-6 pe-xl-1-9">
+                    <aside class="widget widget-nav-menu wow fadeIn" data-wow-delay="200ms" style="visibility: visible; animation-delay: 200ms; animation-name: fadeIn;">
+                        <h4 class="widget-title">Личный кабинет<br>{{ request.user }}</h4>
+                    </aside>
+                    <aside class="widget widget-address wow fadeIn" data-wow-delay="300ms" style="visibility: visible; animation-delay: 300ms; animation-name: fadeIn;">
+                        <h4 class="widget-title">Мои подписки</h4>
+                        <ul class="address-info">
+                            <li>
+                                <a href="#!">6 месяцев<br>Истекает: 28.11.2022</a>
+                            </li>
+                        </ul>
+                        <div class="quform-submit-inner">
+                            <p></p>
+                            <button class="butn butn-style1 sm" type="submit"><span>Управлять подпиской</span></button>
+                            </div>
+                    </aside>
                 </div>
             </div>
-        </section>
+            <!-- end service left -->
+
+            <!-- service right -->
+            <div class="col-lg-8 order-1 order-lg-2 mb-2-2 mb-lg-0">
+                <h1 style="color: black;">Проверить автомобиль по ВИН</h1>
+                    <div>
+                        <form method="post" id="form-input-mainnn">
+                        <div>
+                            {% csrf_token %}
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="select" id="inlineRadio1" value="VIN" checked>
+                              <label class="form-check-label" for="inlineRadio1" style="color: black;">Проверить по VIN</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="reject" id="inlineRadio2" value="GOS">
+                              <label class="form-check-label" for="inlineRadio2" style="color: black;">Проверить по госномеру</label>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="forminnumber" placeholder="1ABCD12345EF26789" id="entervalue" required>
+                                <button class="butn butn-outline-secondary butn-white-hover" type="submit">Поверить авто</button>
+                            </div>
+                         </div>
+                        </form>
+                    </div>
+                <h2 style="color: black;">История проверок</h2>
+                {% if redirect %}
+                <div class="bd-callout-success">
+                    <h3 class="mb-3 h4">Отчет сформируется и будет отправлен вам на почту</h3>
+                </div>
+                {% endif %}
+                {% for report in reports %}
+                <div class="d-flex">
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mt-0 mb-2 h5">{{ report.model }}</h4>
+                        {% if report.is_full_report %}
+                        <p>{{ report.gos_number }}<br><u><a href="{{ report.get_absolute_url }}">Просмотреть весь отчет</a></u></p>
+                        {% else %}
+                        <p>Отчет формируется и будет отправлен вам на почту</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                <div>
+                    <p></p>
+                    <a href="{% url 'reports' %}"><button class="butn butn-outline-secondary butn-white-hover" type="submit"><span>Посмотреть всю историю</span></button></a>
+                </div>
+            </div>
+            <!-- end service right -->
+        </div>
+    </div>
+</section>
 {% endblock body %}
 
 {% block contacts %}

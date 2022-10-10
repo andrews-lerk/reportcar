@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_style %}
+    <header class="header-style">
+{% endblock %}
+{% block logo %}
+    <div class="navbar-header navbar-header-custom">
+        <!-- start logo -->
+        <a href="{% url 'home' %}" class="navbar-brand-custom"><img id="logo" src="{% static 'img/logos/logo-dark.gif' %}" alt="logo"></a>
+        <!-- end logo -->
+    </div>
+{% endblock logo %}
+{% block navigation %}
+<div class="attr-nav align-items-lg-center ms-lg-auto">
+    {% if request.user.is_authenticated %}
+    <ul><li><a href="{% url 'lk' %}" style="text-decoration: underline; color: orange;">{{ request.user }}</a></li></ul>
+    {% else %}
+    <ul>
+        <li><a href="{% url 'login' %}" style="text-decoration: underline; color: orange;">Войти</a></li>
+    </ul>
+    {% endif %}
+</div>
+{% endblock navigation %}
+
+{% block banner %}
+{% endblock banner %}
+
+{% block body %}
+<section>
+   <div class="container wow fadeInUp" data-wow-delay="200ms">
+    <div class="quform-elements">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+            <!-- service left -->
+            <!-- end service left -->
+            <!-- service right -->
+            <div>
+                <h2 style="color: black;">История проверок</h2>
+                {% for report in reports %}
+                <div class="d-flex">
+                    <div class="flex-grow-1 ms-3">
+                        <h4 class="mt-0 mb-2 h5">{{ report.model }}</h4>
+                        {% if report.is_full_report %}
+                        <p>{{ report.gos_number }}<br><u><a href="{{ report.get_absolute_url }}">Просмотреть весь отчет</a></u></p>
+                        {% else %}
+                        <p>Отчет формируется и будет отправлен вам на почту</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- end service right -->
+        </div>
+    </div>
+    </div>
+   </div>
+</section>
+{% endblock body %}
+
+{% block contacts %}
+{% endblock contacts %}
+
+{% block extrascripts %}
+    <script src="{% static 'js/mask.js' %}"></script>
+{% endblock extrascripts %}

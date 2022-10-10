@@ -8,10 +8,17 @@ urlpatterns = [
     path('lk', lk, name='lk'),
     path('login', login_view, name='login'),
     path('auth', auth, name='auth'),
+    path('pay-auth', pay_auth, name='pay-auth'),
     path('logout', logout_, name='logout'),
-    path('check', report_view, name='check'),
     path('report_detail/<str:key>', report_detail, name='report_detail'),
-    path('auth-from-restrict', auth_from_restrict, name='auth_restrict')
+    path('check', check_car, name='check'),
+    path('get-info', get_restrict_data, name='get-info'),
+    path('reports', reports_list, name='reports'),
+    path('pricing', pricing, name='pricing'),
+    path('faq', faq, name='faq'),
+    path('politics', politics, name='politics'),
+    path('terms', terms, name='terms'),
+    path('offer', offer, name='offer')
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block banner %}
+<section class="page-title-section top-position1 bg-img cover-background" data-overlay-dark="7" data-background="{% static 'img/bg/pricing.jpeg' %}">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1>Наши цены</h1>
+            </div>
+            <div class="col-md-12">
+                <div class="breadcrumb">
+                    <span class="left-dot"></span>
+                    <span class="right-dot"></span>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Главная</a></li>
+                        <li><a href="{% url 'pricing' %}">Наши цены</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock banner %}
+
+{% block body %}
+ <section>
+    <div class="container">
+        <div class="section-heading wow fadeIn" data-wow-delay="100ms">
+            <h1>Наши цены</h1>
+            <div class="heading-separator"></div>
+            <p>Our car rental services, in the travel industry and business industry, stand apart for their quality and great taste.</p>
+        </div>
+        <div class="pricing-carousel owl-carousel owl-theme wow fadeInUp" data-wow-delay="200ms">
+            <div class="card border-color-extra-light-gray border-radius-5">
+                <div class="row g-0 align-items-center">
+                    <div class="col-sm-5">
+                        <div class="card-header bg-white border-top-left-radius text-center border-0 pb-0 pt-4 px-3 px-xl-4 py-md-0">
+                            <div class="p-3 bg-primary border-radius-5">
+                                <h3 class="mb-0 font-weight-500 text-white">Standard</h3>
+                                <span class="d-block my-3">
+                                    <span class="display-5 alt-font font-weight-500 text-white">
+                                        <span class="display-30 me-1 text-white">$</span>59
+                                    </span>
+                                </span>
+                                <a href="#!" class="butn radius md butn-white">Choose</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 border-sm-start border-color-extra-light-gray">
+                        <div class="card-body p-4">
+                            <ul class="list-style2">
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Car Wash & Polishing
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Water Wash & Oil Level
+                                </li>
+                                <li>
+                                    <i class="fas fa-times-circle text-secondary me-3"></i>Wheel & Steering Checkup
+                                </li>
+                                <li>
+                                    <i class="fas fa-times-circle text-secondary me-3"></i>Break Adjustment
+                                </li>
+                                <li>
+                                    <i class="fas fa-times-circle text-secondary me-3"></i>Cambelt Replacement
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-color-extra-light-gray border-radius-5">
+                <div class="row g-0 align-items-center">
+                    <div class="col-sm-5">
+                        <div class="card-header bg-white border-top-left-radius text-center border-0 pb-0 pt-4 px-3 px-xl-4 py-md-0">
+                            <div class="p-3 bg-primary border-radius-5">
+                                <h3 class="mb-0 font-weight-500 text-white">Premium</h3>
+                                <span class="d-block my-3">
+                                    <span class="display-5 alt-font font-weight-500 text-white">
+                                        <span class="display-30 me-1 text-white">$</span>79
+                                    </span>
+                                </span>
+                                <a href="#!" class="butn radius md butn-white">Choose</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 border-sm-start border-color-extra-light-gray">
+                        <div class="card-body p-4">
+                            <ul class="list-style2">
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Car Wash & Polishing
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Water Wash & Oil Level
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Wheel & Steering Checkup
+                                </li>
+                                <li>
+                                    <i class="fas fa-times-circle text-secondary me-3"></i>Break Adjustments
+                                </li>
+                                <li>
+                                    <i class="fas fa-times-circle text-secondary me-3"></i>Cambelt Replacement
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-color-extra-light-gray border-radius-5">
+                <div class="row g-0 align-items-center">
+                    <div class="col-sm-5">
+                        <div class="card-header bg-white border-top-left-radius text-center border-0 pb-0 pt-4 px-3 px-xl-4 py-md-0">
+                            <div class="p-3 bg-primary border-radius-5">
+                                <h3 class="mb-0 font-weight-500 text-white">Extended</h3>
+                                <span class="d-block my-3">
+                                    <span class="display-5 alt-font font-weight-500 text-white">
+                                        <span class="display-30 me-1 text-white">$</span>99
+                                    </span>
+                                </span>
+                                <a href="#!" class="butn radius md butn-white">Choose</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 border-sm-start border-color-extra-light-gray">
+                        <div class="card-body p-4">
+                            <ul class="list-style2">
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Car Wash & Polishing
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Water Wash & Oil Level
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Wheel & Steering Checkup
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Break Adjustment
+                                </li>
+                                <li>
+                                    <i class="fas fa-times-circle text-secondary me-3"></i>Cambelt Replacement
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-color-extra-light-gray border-radius-5">
+                <div class="row g-0 align-items-center">
+                    <div class="col-sm-5">
+                        <div class="card-header bg-white border-top-left-radius text-center border-0 pb-0 pt-4 px-3 px-xl-4 py-md-0">
+                            <div class="p-3 bg-primary border-radius-5">
+                                <h3 class="mb-0 font-weight-500 text-white">Ultimate</h3>
+                                <span class="d-block my-3">
+                                    <span class="display-5 alt-font font-weight-500 text-white">
+                                        <span class="display-30 me-1 text-white">$</span>129
+                                    </span>
+                                </span>
+                                <a href="#!" class="butn radius md butn-white">Choose</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 border-sm-start border-color-extra-light-gray">
+                        <div class="card-body p-4">
+                            <ul class="list-style2">
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Car Wash & Polishing
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Water Wash & Oil Level
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Wheel & Steering Checkup
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Break Adjustment
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Cambelt Replacement
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}

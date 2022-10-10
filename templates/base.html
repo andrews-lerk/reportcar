@@ -18,10 +18,10 @@
     <title>Motors - Car Service & Repair HTML Template</title>
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="{% static 'img/logos/favicon.jpeg' %}" />
-    <link rel="apple-touch-icon" href="{% static 'img/logos/apple-touch-icon-57x57.png' %}" />
-    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/logos/apple-touch-icon-72x72.png' %}" />
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/logos/apple-touch-icon-114x114.png' %}" />
+    <link rel="shortcut icon" href="{% static 'img/logos/dark-wheel.jpeg' %}" />
+    <link rel="apple-touch-icon" href="{% static 'img/logos/dark-wheel.jpeg' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/logos/dark-wheel.jpeg' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/logos/dark-wheel.jpeg' %}" />
 
     <!-- plugins -->
     <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
@@ -46,18 +46,6 @@
     <!-- PAGE LOADING
     ================================================== -->
     <div id="preloader"></div>
-    <div id="loading" style="display: none;">
-        <section style="width: 100%; height: 100%">
-            <div class="container" style="height: 100%">
-                <div class="row justify-content-center align-items-center" style="height: 10%">
-                    <p style="color: black;">Ищем информацию об авто. Может занять несколько минут...</p>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
 
     <!-- MAIN WRAPPER
     ================================================== -->
@@ -66,7 +54,9 @@
         <!-- HEADER
         ================================================== -->
         {% block header %}
+        {% block header_style %}
         <header class="header-style1 menu_area-light">
+            {% endblock %}
 
             <div class="navbar-default border-bottom border-color-light-white">
                 <div class="container-fluid px-sm-2-9">
@@ -74,112 +64,44 @@
                         <div class="col-12 col-lg-12">
                             <div class="menu_area alt-font">
                                 <nav class="navbar navbar-expand-lg navbar-light p-0">
-
+                                    {% block logo %}
                                     <div class="navbar-header navbar-header-custom">
                                         <!-- start logo -->
-                                        <a href="{% url 'home' %}" class="navbar-brand"><img id="logo" src="{% static 'img/logos/logo.jpeg' %}" alt="logo"></a>
+                                        <a href="{% url 'home' %}" class="navbar-brand"><img id="logo" src="{% static 'img/logos/logo-white.gif' %}" alt="logo"></a>
                                         <!-- end logo -->
                                     </div>
-
+                                    {% endblock logo %}
                                     <div class="navbar-toggler"></div>
 
                                     <!-- menu area -->
                                     <ul class="navbar-nav align-items-lg-center ms-auto" id="nav" style="display: none;">
                                         <li><a href="{% url 'home' %}">Главная</a></li>
+                                        <li><a href="{% url 'pricing' %}">Наши цены</a></li>
+                                        <li><a href="{% url 'faq' %}">FAQ</a></li>
                                         <li>
                                             <a href="#!">Страницы</a>
                                             <ul>
-                                                <li><a href="about.html">About Us</a></li>
-                                                <li><a href="services.html">Our Services</a></li>
-                                                <li><a href="our-history.html">Our History</a></li>
-                                                <li><a href="our-team.html">Our Team</a></li>
-                                                <li><a href="testimonials.html">Testimonials</a></li>
-                                                <li><a href="pricing.html">Pricing</a></li>
-                                                <li><a href="faq.html">FAQ</a></li>
-                                                <li>
-                                                    <a href="#!">Others</a>
-                                                    <ul>
-                                                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                                        <li><a href="terms-and-conditions.html">Terms And Conditions</a></li>
-                                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                                        <li><a href="404.html">404 Page</a></li>
-                                                    </ul>
-                                                </li>
+                                                <li><a href="{% url 'politics' %}">Политика конфедициальности</a></li>
+                                                <li><a href="{% url 'terms' %}">Условия соглашения</a></li>
+                                                <li><a href="{% url 'offer' %}">Публичная оферта</a></li>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#!">Новости</a>
-                                            <ul>
-                                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="blog-list.html">Blog List</a></li>
-                                                <li><a href="blog-detail.html">Blog Detail</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#!">FAQ</a>
-                                            <ul class="row megamenu">
-                                                <li class="col-lg-3 col-sm-12">
-                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 01</span>
-                                                    <ul>
-                                                        <li><a href="accordion.html"><i class="fas fa-sliders-h me-2"></i>Accordion</a></li>
-                                                        <li><a href="alerts.html"><i class="far fa-bell me-2"></i>Alerts</a></li>
-                                                        <li><a href="blockquotes.html"><i class="fas fa-vector-square me-2"></i>Blockquotes</a></li>
-                                                        <li><a href="buttons.html"><i class="fas fa-link me-2"></i>Buttons</a></li>
-                                                        <li><a href="call-to-action.html"><i class="far fa-square me-2"></i>Call to Action</a></li>
-                                                        <li><a href="carousel-slider.html"><i class="far fa-images me-2"></i>Carousel Slider</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-lg-3 col-sm-12">
-                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 02</span>
-                                                    <ul>
-                                                        <li><a href="count-down.html"><i class="far fa-flag me-2"></i>Count Down</a></li>
-                                                        <li><a href="counters.html"><i class="fas fa-compress me-2"></i>Counters</a></li>
-                                                        <li><a href="dropcaps.html"><i class="far fa-closed-captioning me-2"></i>Dropcaps</a></li>
-                                                        <li><a href="forms.html"><i class="fab fa-wpforms me-2"></i>Forms</a></li>
-                                                        <li><a href="font-icons.html"><i class="far fa-check-square me-2"></i>Font Icons</a></li>
-                                                        <li><a href="google-map.html"><i class="fas fa-map-marker-alt me-2"></i>Google Map</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-lg-3 col-sm-12">
-                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 03</span>
-                                                    <ul>
-                                                        <li><a href="grid-system.html"><i class="fas fa-th me-2"></i>Grid System</a></li>
-                                                        <li><a href="highlights.html"><i class="fas fa-highlighter me-2"></i>Highlights</a></li>
-                                                        <li><a href="icon-with-text.html"><i class="fab fa-fonticons-fi me-2"></i>Icon With Text</a></li>
-                                                        <li><a href="list-styles.html"><i class="fas fa-list-ul me-2"></i>List Styles</a></li>
-                                                        <li><a href="media-object.html"><i class="fas fa-photo-video me-2"></i>Media Object</a></li>
-                                                        <li><a href="modal.html"><i class="fas fa-expand me-2"></i>Modal</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-lg-3 col-sm-12">
-                                                    <span class="mb-0 mb-lg-3 d-block py-2 p-lg-0 px-4 px-lg-0 text-uppercase sub-title font-weight-600 display-30">Elements 04</span>
-                                                    <ul>
-                                                        <li><a href="pagination.html"><i class="far fa-caret-square-right me-2"></i>Pagination</a></li>
-                                                        <li><a href="progress-bars.html"><i class="fas fa-tasks me-2"></i>Progress Bars</a></li>
-                                                        <li><a href="tables.html"><i class="fas fa-table me-2"></i>Tables</a></li>
-                                                        <li><a href="tabs.html"><i class="fas fa-sliders-h me-2"></i>Tabs</a></li>
-                                                        <li><a href="typography.html"><i class="fas fa-text-height me-2"></i>Typography</a></li>
-                                                        <li><a href="videos.html"><i class="fas fa-video me-2"></i>Videos</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Контакты</a></li>
+                                        <li><a href="#footer_">Контакты</a></li>
                                     </ul>
                                     <!-- end menu area -->
 
                                     <!-- start attribute navigation -->
+                                    {% block navigation %}
                                     <div class="attr-nav align-items-lg-center ms-lg-auto">
                                         {% if request.user.is_authenticated %}
                                         <ul><li><a href="{% url 'lk' %}" style="text-decoration: underline; color: orange;">{{ request.user }}</a></li></ul>
-                                        <ul>
-                                            <li class="d-none d-xl-inline-block"><a href="{% url 'logout' %}" class="butn primary md text-white">Выйти</a></li>
-                                        </ul>
                                         {% else %}
                                         <ul>
-                                            <li class="d-none d-xl-inline-block"><a href="{% url 'login' %}" class="butn primary md text-white">Войти</a></li>
+                                            <li><a href="{% url 'login' %}" style="text-decoration: underline; color: orange;">Войти</a></li>
                                         </ul>
                                         {% endif %}
                                     </div>
+                                    {% endblock navigation %}
                                     <!-- end attribute navigation -->
 
                                 </nav>
@@ -210,16 +132,18 @@
                                                 <div>
                                                     {% csrf_token %}
                                                     <div class="form-check form-check-inline">
-                                                      <input class="form-check-input" type="radio" name="select" id="inlineRadio1" value="VIN" checked>
-                                                      <label class="form-check-label" for="inlineRadio1" style="color: white;">Проверить по VIN</label>
+                                                      <label style="color: white;">
+                                                          <input class="form-check-input" type="radio" name="select" id="inlineRadio1" value="VIN" checked>
+                                                          Проверить по VIN</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                      <input class="form-check-input" type="radio" name="reject" id="inlineRadio2" value="GOS">
-                                                      <label class="form-check-label" for="inlineRadio2" style="color: white;">Проверить по госномеру</label>
+                                                      <label style="color: white;">
+                                                          <input class="form-check-input" type="radio" name="reject" id="inlineRadio2" value="GOS">
+                                                          Проверить по госномеру</label>
                                                     </div>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name="forminnumber" placeholder="1ABCD12345EF26789" id="entervalue" required>
-                                                        <button class="butn butn-outline-secondary butn-white-hover" type="submit" onclick="sendReportRequest()">Поверить авто</button>
+                                                        <button class="butn butn-outline-secondary butn-white-hover" type="submit">Поверить авто</button>
                                                     </div>
                                                  </div>
                                                 </form>
@@ -267,134 +191,45 @@
         <!-- FOOTER
         ================================================== -->
         {% block footer %}
-        <footer>
+        <footer id="footer_">
             <div class="container">
                 <div class="row mb-6 mt-n2-6">
                     <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="200ms">
-                        <div class="mb-1-6 mb-lg-1-9 footer-logo">
-                            <img src="img/logos/footer-light-logo.png" alt="...">
-                        </div>
-                        <p class="mb-1-6 mb-lg-1-9 text-white">
-                            Motores gives you all elements which are necessary for your design goals.
-                        </p>
-                        <ul class="address-list">
-                            <li><span class="fa fa-home pe-3 text-white"></span><a href="#!">174 Guild Street, Town MT.</a></li>
-                            <li><span class="fa fa-phone pe-3 text-white"></span><a href="#!">(+44) 123 456 7892</a></li>
-                            <li><span class="fa fa-envelope pe-3 text-white"></span><a href="#!">example@yourmail.com</a></li>
-                        </ul>
+                         <div class="mb-1-6 mb-lg-1-9 footer-logo">
+                                <img src="{% static 'img/logos/logo-white.gif' %}" alt="...">
+                            </div>
                     </div>
-                    <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="400ms">
-                        <div class="ps-sm-1-9 ps-xl-2-5">
-                            <h3 class="h5 text-white text-capitalize">Working hours</h3>
+                    <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="600ms">
+                        <div class="ps-lg-1-9 ps-xl-2-5">
                             <div class="mb-1-6 mb-lg-1-9">
                                 <div class="separator"></div>
                             </div>
-                            <ul class="footer-hour-list">
-                                <li>
-                                    <i class="ti-time text-white"></i>
-                                    <div>
-                                        <h4 class="display-29 font-weight-500 text-white">Monday - Friday</h4>
-                                        <p class="mb-0 text-white display-30">8:00 AM - 5:00 PM</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="ti-time text-white"></i>
-                                    <div>
-                                        <h4 class="display-29 font-weight-500 text-white">Saturday</h4>
-                                        <p class="mb-0 text-white display-30">9:00 AM - 4:00 PM</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="ti-time text-white"></i>
-                                    <div>
-                                        <h4 class="display-29 font-weight-500 text-white">Sunday</h4>
-                                        <p class="mb-0 text-white display-30">Closed</p>
-                                    </div>
-                                </li>
+                            <ul class="footer-list-style1">
+                                <li><a href="{% url 'pricing' %}">Наши цены</a></li>
+                                <li><a href="oil-filters.html">FAQ</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="600ms">
                         <div class="ps-lg-1-9 ps-xl-2-5">
-                            <h3 class="h5 text-white text-capitalize">Services</h3>
                             <div class="mb-1-6 mb-lg-1-9">
                                 <div class="separator"></div>
                             </div>
                             <ul class="footer-list-style1">
-                                <li><a href="engine-diagnostics.html">Engine Diagnostics</a></li>
-                                <li><a href="oil-filters.html">Oil & Filters</a></li>
-                                <li><a href="brake-repair.html">Brake Repair</a></li>
-                                <li><a href="wheel-alignment.html">Wheel Alignment</a></li>
+                                <li><a href="engine-diagnostics.html">Политика конфедициальности</a></li>
+                                <li><a href="oil-filters.html">Условия соглашения</a></li>
+                                <li><a href="brake-repair.html">Публичная оферта</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-3 mt-2-6 wow fadeIn" data-wow-delay="800ms">
-                        <div class="ps-sm-1-9 ps-xl-2-5">
-                            <h3 class="h5 text-white text-capitalize">Our News Letter</h3>
-                            <div class="mb-1-6 mb-lg-1-9">
-                                <div class="separator"></div>
-                            </div>
-                            <p class="text-white mb-1-6 mb-lg-1-9">You can get latest update from Subscribing to our News Letter</p>
-                            <form class="quform newsletter-footer" action="quform/newsletter-two.php" method="post" enctype="multipart/form-data" onclick="">
-
-                                <div class="quform-elements">
-
-                                    <div class="row">
-
-                                        <!-- Begin Text input element -->
-                                        <div class="col-md-12">
-                                            <div class="quform-element">
-                                                <div class="quform-input">
-                                                    <input class="form-control" id="email_address" type="text" name="email_address" placeholder="Subscribe with us" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Text input element -->
-
-                                        <!-- Begin Submit button -->
-                                        <div class="col-md-12">
-                                            <div class="quform-submit-inner">
-                                                <button class="btn btn-white text-primary m-0 px-2" type="submit"><i class="fas fa-paper-plane"></i></button>
-                                            </div>
-                                            <div class="quform-loading-wrap"><span class="quform-loading"></span></div>
-                                        </div>
-                                        <!-- End Submit button -->
-
-                                    </div>
-
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-n4">
-                    <div class="col-sm-6 col-lg-3 mt-4 wow fadeIn" data-wow-delay="200ms">
-                        <div>
-                            <a href="#!" class="footer-social-icon"><i class="fab fa-facebook-f"></i>Facebook</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mt-4 wow fadeIn" data-wow-delay="400ms">
-                        <div>
-                            <a href="#!" class="footer-social-icon"><i class="fab fa-twitter"></i>Twitter</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mt-4 wow fadeIn" data-wow-delay="600ms">
-                        <div>
-                            <a href="#!" class="footer-social-icon"><i class="fab fa-youtube"></i>Youtube</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mt-4 wow fadeIn" data-wow-delay="800ms">
-                        <div>
-                            <a href="#!" class="footer-social-icon"><i class="fab fa-linkedin-in"></i>Linkedin</a>
-                        </div>
                     </div>
                 </div>
                 <div class="footer-bar borders-top border-color-light-white">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <p class="d-inline-block text-white mb-0">&copy; <span class="current-year"></span> Motors Powered by <a href="#!" class="text-primary white-hover">Chitrakoot Web</a></p>
+                                <p class="d-inline-block">ИНН: something ОГРН: something</p>
                             </div>
                         </div>
                     </div>

@@ -54,13 +54,13 @@
             var logodefault = $(".navbar-brand.logodefault img");
             if (scroll <= 50) {
                 $("header").removeClass("scrollHeader").addClass("fixedHeader");
-                logochange.attr('static', 'img/logos/logo.jpeg');
-                logodefault.attr('static', 'img/logos/logo.jpeg');
+                logochange.attr('src', 'static/img/logos/logo-white.gif');
+                logodefault.attr('src', 'static/img/logos/logo-white.gif');
             } 
             else {
                 $("header").removeClass("fixedHeader").addClass("scrollHeader");
-                logochange.attr('static', 'img/logos/logo.jpeg');
-                logodefault.attr('static', 'img/logos/logo.jpeg');
+                logochange.attr('src', 'static/img/logos/logo-dark.gif');
+                logodefault.attr('src', 'static/img/logos/logo-dark.gif');
             }
         });
 

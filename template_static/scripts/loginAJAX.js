@@ -2,13 +2,15 @@ function sendRequest() {
 
     let button = document.querySelector('#submit-button')
     button.style = "display: none;"
+    let buttonReload = document.querySelector('#reload-code')
+    buttonReload.style = "display: none;"
     document.querySelector('#loader').style = "display: block;"
 
     let form = document.querySelector('#login-form')
 
     let token = form.csrfmiddlewaretoken.value
     let email = form.email.value
-
+    form.email.setAttribute('readonly', true)
     const headers = {
     'Content-Type': 'application/json',
     'X-CSRFToken': token
@@ -26,9 +28,10 @@ function sendRequest() {
 
     if (response.ok) {
 
+        buttonReload.style = ""
         button.style = ""
-        button.onclick = ""
-        button.type = "submit"
+        button.setAttribute('onclick','auth()')
+        button.setAttribute('type','button')
         button.innerHTML = '<span>Войти</span>'
 
         document.querySelector('#loader').style = ""
@@ -36,23 +39,23 @@ function sendRequest() {
         document.querySelector('#password').hidden = false
 
         return
-    }
+       }
     })
-    }
+}
 
-function sendForRestrictRequest() {
+function sendPayRequest() {
 
     let button = document.querySelector('#submit-button')
-    let mbutton = document.querySelector('#m-button')
     button.style = "display: none;"
+    let buttonReload = document.querySelector('#reload-code')
+    buttonReload.style = "display: none;"
     document.querySelector('#loader').style = "display: block;"
 
     let form = document.querySelector('#login-form')
 
-
     let token = form.csrfmiddlewaretoken.value
     let email = form.email.value
-
+    form.email.setAttribute('readonly', true)
     const headers = {
     'Content-Type': 'application/json',
     'X-CSRFToken': token
@@ -70,8 +73,10 @@ function sendForRestrictRequest() {
 
     if (response.ok) {
 
-        button.style = "display: none"
-        mbutton.style = ""
+        buttonReload.style = ""
+        button.style = ""
+        button.setAttribute('onclick','payauth()')
+        button.setAttribute('type','button')
         button.innerHTML = '<span>Перейти к оплате</span>'
 
         document.querySelector('#loader').style = ""
@@ -79,6 +84,90 @@ function sendForRestrictRequest() {
         document.querySelector('#password').hidden = false
 
         return
-    }
+       }
     })
+}
+
+function auth() {
+
+    let button = document.querySelector('#submit-button')
+    button.style = "display: none;"
+    let buttonReload = document.querySelector('#reload-code')
+    buttonReload.style = "display: none;"
+    document.querySelector('#loader').style = "display: block;"
+
+    let form = document.querySelector('#login-form')
+
+    let token = form.csrfmiddlewaretoken.value
+    let email = form.email.value
+    let pass = form.password.value
+
+    const headers = {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': token
     }
+
+    let body = {
+    'email': email,
+    'pass' : pass
+    }
+
+    return fetch(authURL, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: headers
+    }).then(response => {
+
+    if (response.ok) {
+        document.location.href=redirectURL
+       } else {
+       buttonReload.style = ""
+       button.style = ""
+       document.querySelector('#loader').style = "display: none;"
+       document.querySelector('#warning_').style = ""
+       }
+    })
+}
+
+function payauth() {
+
+    let button = document.querySelector('#submit-button')
+    button.style = "display: none;"
+    let buttonReload = document.querySelector('#reload-code')
+    buttonReload.style = "display: none;"
+    document.querySelector('#loader').style = "display: block;"
+
+    let form = document.querySelector('#login-form')
+
+    let token = form.csrfmiddlewaretoken.value
+    let email = form.email.value
+    let pass = form.password.value
+
+    const headers = {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': token
+    }
+
+    let body = {
+    'email': email,
+    'pass' : pass,
+    'type' : type,
+    'number' : number
+    }
+
+    return fetch(authURL, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: headers
+    }).then(response => {
+
+    if (response.ok) {
+        document.location.href=redirectURL
+       } else {
+       buttonReload.style = ""
+       button.style = ""
+       document.querySelector('#loader').style = "display: none;"
+       document.querySelector('#warning_').style = ""
+       }
+    })
+}

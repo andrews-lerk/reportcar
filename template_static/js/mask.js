@@ -42,10 +42,3 @@ document.addEventListener("DOMContentLoaded", function(){
     gosRadio.addEventListener("input", onGosInput);
     inputForm.addEventListener("input", onInput);
     });
-
-
-
-function sendReportRequest() {
-    let loading = document.querySelector('#loading')
-    loading.style.display = ''
-    }

@@ -10,7 +10,7 @@ class AuthForm(forms.Form):
         })
     ))
     password = forms.CharField(widget=(
-        forms.PasswordInput(attrs={
+        forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Введите код подтверждения',
             'id': 'password',

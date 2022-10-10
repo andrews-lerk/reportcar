@@ -102,8 +102,6 @@ AUTHENTICATION_BACKENDS = ('profiles.backends.AuthBackend', 'django.contrib.auth
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
@@ -113,9 +111,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
+# static, media
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (BASE_DIR / 'template_static',)
 
@@ -123,21 +119,52 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# email settings
+# smtp
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
 EMAIL_HOST_USER = 'noreply@reportcar.ru'
-EMAIL_HOST_PASSWORD = 'Skeun7JbhNfK8TfsQz1D'
+EMAIL_HOST_PASSWORD = 'eNn6v70WxvhHjPxrBavK'
+
+# REDIS, CELERY
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = '6379'
+CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERYD_HIJACK_ROOT_LOGGER = False
+
+# logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'django': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename':  BASE_DIR / '../logs/django.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['django'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
+# tokens
+API_CLOUD_TOKEN = 'ae3b2fa0e7d3f7dec39b99cb59421e81'
 
 try:
     from .local_settings import *
 except:
     pass
 # Skeun7JbhNfK8TfsQz1D
-# 1265384567 - db

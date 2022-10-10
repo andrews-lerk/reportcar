@@ -17,7 +17,7 @@ def random_value():
 class Vehicle(models.Model):
     """ main model of vehicle, in this model connect all models of report via ForeignKey """
 
-    profile = models.ForeignKey(Profiles, verbose_name='vehicle_profiles', on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profiles, verbose_name='vehicle_profiles', on_delete=models.CASCADE, null=True)
 
     vin = models.CharField('Вин номер', max_length=511, null=True)
     gos_number = models.CharField('Регистрационный номер', max_length=255, null=True)
@@ -31,6 +31,8 @@ class Vehicle(models.Model):
     power_kwt = models.CharField('Мощность кВт.', max_length=31, null=True)
     category = models.CharField('Категория ТС', max_length=4, null=True)
     key = models.CharField('Уникальный ключ в базе данных', max_length=255, unique=True, default=random_value)
+    is_full_report = models.BooleanField('Полный отчет?', default=False)
+    date_actual = models.DateTimeField('Дата составления отчета', auto_now_add=True)
 
     def __str__(self):
         return f'{self.model} - {self.gos_number}'
