@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     'main',
     'profiles',
-    'reports'
+    'reports',
+    'payments'
 ]
 
 MIDDLEWARE = [

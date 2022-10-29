@@ -162,7 +162,9 @@ function payauth() {
     }).then(response => {
 
     if (response.ok) {
-        document.location.href=redirectURL
+        return response.json().then(data => {
+        window.location.href = data.url
+        })
        } else {
        buttonReload.style = ""
        button.style = ""

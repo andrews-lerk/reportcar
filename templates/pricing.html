@@ -29,21 +29,25 @@
         <div class="section-heading wow fadeIn" data-wow-delay="100ms">
             <h1>Наши цены</h1>
             <div class="heading-separator"></div>
-            <p>Our car rental services, in the travel industry and business industry, stand apart for their quality and great taste.</p>
         </div>
-        <div class="pricing-carousel owl-carousel owl-theme wow fadeInUp" data-wow-delay="200ms">
+        <div data-wow-delay="200ms">
+            {% for rate in rates %}
             <div class="card border-color-extra-light-gray border-radius-5">
                 <div class="row g-0 align-items-center">
                     <div class="col-sm-5">
                         <div class="card-header bg-white border-top-left-radius text-center border-0 pb-0 pt-4 px-3 px-xl-4 py-md-0">
                             <div class="p-3 bg-primary border-radius-5">
-                                <h3 class="mb-0 font-weight-500 text-white">Standard</h3>
+                                <h3 class="mb-0 font-weight-500 text-white">{{ rate.title }}</h3>
                                 <span class="d-block my-3">
                                     <span class="display-5 alt-font font-weight-500 text-white">
-                                        <span class="display-30 me-1 text-white">$</span>59
+                                        <span class="display-30 me-1 text-white">₽</span>{{ rate.start_price }}
                                     </span>
                                 </span>
-                                <a href="#!" class="butn radius md butn-white">Choose</a>
+                                {% if request.user.is_authenticated %}
+                                <button class="butn radius md butn-white" type="button" onclick="subscribe('{{ rate.title }}')">Выбрать</button>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="butn radius md butn-white">Выбрать</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -51,140 +55,38 @@
                         <div class="card-body p-4">
                             <ul class="list-style2">
                                 <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Car Wash & Polishing
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Участие в акции!
                                 </li>
                                 <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Water Wash & Oil Level
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>Выгодные автоотчеты
                                 </li>
                                 <li>
-                                    <i class="fas fa-times-circle text-secondary me-3"></i>Wheel & Steering Checkup
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>3 недели на выбор авто
                                 </li>
                                 <li>
-                                    <i class="fas fa-times-circle text-secondary me-3"></i>Break Adjustment
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>{{ rate.reports_in_week }} отчетов каждую неделю
                                 </li>
                                 <li>
-                                    <i class="fas fa-times-circle text-secondary me-3"></i>Cambelt Replacement
+                                    <i class="fas fa-check-circle text-secondary me-3"></i>{{ rate.start_price }} рублей первые 3 дня, далее {{ rate.base_price }} рублей каждую неделю
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card border-color-extra-light-gray border-radius-5">
-                <div class="row g-0 align-items-center">
-                    <div class="col-sm-5">
-                        <div class="card-header bg-white border-top-left-radius text-center border-0 pb-0 pt-4 px-3 px-xl-4 py-md-0">
-                            <div class="p-3 bg-primary border-radius-5">
-                                <h3 class="mb-0 font-weight-500 text-white">Premium</h3>
-                                <span class="d-block my-3">
-                                    <span class="display-5 alt-font font-weight-500 text-white">
-                                        <span class="display-30 me-1 text-white">$</span>79
-                                    </span>
-                                </span>
-                                <a href="#!" class="butn radius md butn-white">Choose</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7 border-sm-start border-color-extra-light-gray">
-                        <div class="card-body p-4">
-                            <ul class="list-style2">
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Car Wash & Polishing
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Water Wash & Oil Level
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Wheel & Steering Checkup
-                                </li>
-                                <li>
-                                    <i class="fas fa-times-circle text-secondary me-3"></i>Break Adjustments
-                                </li>
-                                <li>
-                                    <i class="fas fa-times-circle text-secondary me-3"></i>Cambelt Replacement
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card border-color-extra-light-gray border-radius-5">
-                <div class="row g-0 align-items-center">
-                    <div class="col-sm-5">
-                        <div class="card-header bg-white border-top-left-radius text-center border-0 pb-0 pt-4 px-3 px-xl-4 py-md-0">
-                            <div class="p-3 bg-primary border-radius-5">
-                                <h3 class="mb-0 font-weight-500 text-white">Extended</h3>
-                                <span class="d-block my-3">
-                                    <span class="display-5 alt-font font-weight-500 text-white">
-                                        <span class="display-30 me-1 text-white">$</span>99
-                                    </span>
-                                </span>
-                                <a href="#!" class="butn radius md butn-white">Choose</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7 border-sm-start border-color-extra-light-gray">
-                        <div class="card-body p-4">
-                            <ul class="list-style2">
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Car Wash & Polishing
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Water Wash & Oil Level
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Wheel & Steering Checkup
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Break Adjustment
-                                </li>
-                                <li>
-                                    <i class="fas fa-times-circle text-secondary me-3"></i>Cambelt Replacement
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card border-color-extra-light-gray border-radius-5">
-                <div class="row g-0 align-items-center">
-                    <div class="col-sm-5">
-                        <div class="card-header bg-white border-top-left-radius text-center border-0 pb-0 pt-4 px-3 px-xl-4 py-md-0">
-                            <div class="p-3 bg-primary border-radius-5">
-                                <h3 class="mb-0 font-weight-500 text-white">Ultimate</h3>
-                                <span class="d-block my-3">
-                                    <span class="display-5 alt-font font-weight-500 text-white">
-                                        <span class="display-30 me-1 text-white">$</span>129
-                                    </span>
-                                </span>
-                                <a href="#!" class="butn radius md butn-white">Choose</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7 border-sm-start border-color-extra-light-gray">
-                        <div class="card-body p-4">
-                            <ul class="list-style2">
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Car Wash & Polishing
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Water Wash & Oil Level
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Wheel & Steering Checkup
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Break Adjustment
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle text-secondary me-3"></i>Cambelt Replacement
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 {% endblock body %}
+
+{% block extrascripts %}
+<script>
+    const URL =
+        {% if request.is_secure %}"https://"{% else %}"http://"{% endif %}
+        + "{{ request.META.HTTP_HOST }}"
+        + "{% url 'pricing' %}"
+    const token = '{{ csrf_token }}'
+</script>
+<script src="{% static 'scripts/subscribeAJAX.js' %}"></script>
+{% endblock extrascripts %}

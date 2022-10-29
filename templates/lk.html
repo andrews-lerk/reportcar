@@ -34,15 +34,36 @@
                     </aside>
                     <aside class="widget widget-address wow fadeIn" data-wow-delay="300ms" style="visibility: visible; animation-delay: 300ms; animation-name: fadeIn;">
                         <h4 class="widget-title">Мои подписки</h4>
+                        {% if not subscribe %}
                         <ul class="address-info">
                             <li>
-                                <a href="#!">6 месяцев<br>Истекает: 28.11.2022</a>
+                                <a href="#!">Нет активных<br>Купите тариф чтобы получать больше отчетов за меньшую цену</a>
                             </li>
                         </ul>
                         <div class="quform-submit-inner">
                             <p></p>
-                            <button class="butn butn-style1 sm" type="submit"><span>Управлять подпиской</span></button>
+                            <a href="{% url 'pricing' %}"><button class="butn butn-style1 sm" type="button"><span>Посмотреть доступные подписки</span></button></a>
                             </div>
+                        {% else %}
+                        <ul class="address-info">
+                            <li>
+                                <mark>{{ subscribe.rate_type.title }}</mark>
+                            </li>
+                            <li>
+                                Отчетов осталось: <mark>{{ subscribe.report_counter }}</mark>
+                            </li>
+                            <li>
+                                Этап подписки: <mark>{{ subscribe.get_step_display }}</mark><br>
+                            </li>
+                            <li>
+                                Дата следующего начисления отчетов: <mark>{{ subscribe.step_date_expired }}</mark>
+                            </li>
+                        </ul>
+                        <div class="quform-submit-inner">
+                            <p></p>
+                            <a href="{% url 'prices' %}"><button class="butn butn-style1 sm" type="button"><span>Управлять подпиской</span></button></a>
+                            </div>
+                        {% endif %}
                     </aside>
                 </div>
             </div>
@@ -71,9 +92,15 @@
                         </form>
                     </div>
                 <h2 style="color: black;">История проверок</h2>
-                {% if redirect %}
+                {% if redirect == 'success' %}
                 <div class="bd-callout-success">
                     <h3 class="mb-3 h4">Отчет сформируется и будет отправлен вам на почту</h3>
+                    <u><a href="{% url 'lk' %}">Закрыть</a></u>
+                </div>
+                {% elif redirect == 'fail' %}
+                <div class="bd-callout-warning">
+                    <h3 class="mb-3 h4">Оплата прошла не успешно</h3>
+                    <u><a href="{% url 'lk' %}">Закрыть</a></u>
                 </div>
                 {% endif %}
                 {% for report in reports %}

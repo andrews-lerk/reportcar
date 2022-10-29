@@ -1,7 +1,6 @@
 import time
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-
 from .forms import *
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -18,6 +17,8 @@ from reports.models import Vehicle, VinDecode, VehiclePeriods, Dtp, \
     CustomsClearance, RNISRegister, Osago, DiagnosticsActive, DiagnosticsExpired, Image
 from .tasks import create_car_info_celery
 from .models import FAQ, ReportsViewCounter
+from payments.services import get_payment, get_subscribe_payment
+from payments.models import *
 
 
 def index(request):
@@ -30,7 +31,25 @@ def index(request):
 
 
 def pricing(request):
-    return render(request, 'pricing.html')
+    if request.method == 'POST':
+        type_name = json.loads(request.body)['typename']
+        rate = RateType.objects.get(title=type_name)
+        try:
+            payment = json.loads(get_subscribe_payment(request, request.META['HTTP_HOST'], rate))
+            SubscribePayment.objects.create(
+                profile=Profiles.object.get(email=request.user.email),
+                payment_id=payment['id'],
+                status=payment['status'],
+                paid=payment['paid']
+            )
+        except Exception as e:
+            print(e)
+        return JsonResponse({'url': payment['confirmation']['confirmation_url']})
+    rates = RateType.objects.all()
+    context = {
+        'rates': rates
+    }
+    return render(request, 'pricing.html', context)
 
 
 def faq(request):
@@ -178,13 +197,17 @@ def pay_auth(request):
             login(request, user)
         type = data['type']
         number = data['number']
-        if request.is_secure:
-            protocol = 'https://'
-        else:
-            protocol = 'http://'
         host = request.META['HTTP_HOST']
-        create_car_info_celery.delay(protocol, host, request.user.email, type, number)
-        return HttpResponse(status=200)
+        payment = get_payment(request, host, type, number)
+        payment_data = json.loads(payment)
+        url = payment_data['confirmation']['confirmation_url']
+        OneTimePayment.objects.create(
+            profile=Profiles.object.get(email=request.user.email),
+            payment_id=payment_data['id'],
+            status=payment_data['status'],
+            paid=False
+        )
+        return JsonResponse({'url': url})
     return HttpResponse(status=400)
 
 
@@ -238,14 +261,19 @@ def lk(request):
     reports = list(Vehicle.objects.filter(profile=request.user))
     reports.reverse()
     reports = reports[:3]
-
+    subscribe = RateSubscribe.objects.filter(payment_method__profile=Profiles.object.get(email=request.user.email))
+    if len(subscribe)==0:
+        subscribe = False
+    else:
+        subscribe = subscribe.first()
     context = {
-        'reports': reports
+        'reports': reports,
+        'subscribe': subscribe
     }
 
     try:
         r = request.GET['redirect']
-        context['redirect'] = True
+        context['redirect'] = r
     except:
         pass
     return render(request, 'lk.html', context)
