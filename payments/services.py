@@ -44,5 +44,4 @@ def get_subscribe_payment(request, host, rate):
         },
         "save_payment_method": True
     }, uuid.uuid4())
-    print('here in')
     return payment.json()
