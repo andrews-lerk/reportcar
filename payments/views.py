@@ -9,8 +9,10 @@ from profiles.models import Profiles
 from yookassa import Payment
 from django.utils import timezone
 from datetime import timedelta
+from django.views.decorators.csrf import csrf_exempt
 
 
+@csrf_exempt
 def pay_callback(request):
     data = json.loads(request.body)
     if data['metadata']['payment'] == 'one-time':
@@ -50,7 +52,7 @@ def subscribe_pay_handler(data):
         rate_type=RateType.objects.get(title=payment_data['metadata']['typename']),
         report_counter=3,
         step='start',
-        step_date_expired=timezone.localdate()+timedelta(3)
+        step_date_expired=timezone.localdate() + timedelta(3)
     )
     return HttpResponse(status=200)
 
