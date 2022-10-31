@@ -35,8 +35,11 @@ def pay_callback(request):
     payment_data = json.loads(payment.json())
     if payment_data['metadata']['payment'] == 'one-time':
         one_time_pay_handler(payment_data, payment_model)
+        return HttpResponse(status=200)
     if payment_data['metadata']['payment'] == 'subscribe':
         subscribe_pay_handler(payment_data, payment_model)
+        return HttpResponse(status=200)
+    return HttpResponse(status=200)
 
 
 def one_time_pay_handler(payment_data, payment_model):
