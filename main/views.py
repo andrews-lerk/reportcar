@@ -61,8 +61,8 @@ def politics(request):
     return render(request, 'politics.html')
 
 
-def terms(request):
-    return render(request, 'terms.html')
+def tariffs(request):
+    return render(request, 'tariffs.html')
 
 
 def offer(request):

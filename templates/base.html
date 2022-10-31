@@ -79,11 +79,11 @@
                                         <li><a href="{% url 'pricing' %}">Наши цены</a></li>
                                         <li><a href="{% url 'faq' %}">FAQ</a></li>
                                         <li>
-                                            <a href="#!">Страницы</a>
+                                            <a href="#!">Информация</a>
                                             <ul>
-                                                <li><a href="{% url 'politics' %}">Политика конфедициальности</a></li>
-                                                <li><a href="{% url 'terms' %}">Условия соглашения</a></li>
+                                                <li><a href="{% url 'politics' %}">Политика конфедициальности и обработки персональных данных</a></li>
                                                 <li><a href="{% url 'offer' %}">Публичная оферта</a></li>
+                                                <li><a href="{% url 'tariffs' %}">Тарифные планы</a></li>
                                             </ul>
                                         </li>
                                         <li><a href="#footer_">Контакты</a></li>
@@ -216,9 +216,9 @@
                                 <div class="separator"></div>
                             </div>
                             <ul class="footer-list-style1">
-                                <li><a href="engine-diagnostics.html">Политика конфедициальности</a></li>
-                                <li><a href="oil-filters.html">Условия соглашения</a></li>
-                                <li><a href="brake-repair.html">Публичная оферта</a></li>
+                                <li><a href="{% url 'politics' %}">Политика конфедициальности и обработки персональных данных</a></li>
+                                <li><a href="{% url 'offer' %}">Публичная оферта</a></li>
+                                <li><a href="{% url 'tariffs' %}">Тарифные планы</a></li>
                             </ul>
                         </div>
                     </div>
@@ -229,7 +229,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <p class="d-inline-block">ИНН: something ОГРН: something</p>
+                                <p class="d-inline-block">ИП: Афанасьев И.Ю. &nbsp;ИНН: 772501310280 &nbsp;ОГРН: 322774600569678</p>
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ urlpatterns = [
     path('pricing', pricing, name='pricing'),
     path('faq', faq, name='faq'),
     path('politics', politics, name='politics'),
-    path('terms', terms, name='terms'),
+    path('tariffs', tariffs, name='tariffs'),
     path('offer', offer, name='offer')
 ]
 
