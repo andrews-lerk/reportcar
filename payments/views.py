@@ -10,21 +10,36 @@ from yookassa import Payment
 from django.utils import timezone
 from datetime import timedelta
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
+
+
+def get_ip_address(request):
+    user_ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+    if user_ip_address:
+        ip = user_ip_address.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 @csrf_exempt
 def pay_callback(request):
+    ip_ = get_ip_address(request)
+    print(f'ip from {ip_}')
     data = json.loads(request.body)
-    if data['metadata']['payment'] == 'one-time':
-        one_time_pay_handler(data)
-    if data['metadata']['payment'] == 'subscribe':
-        subscribe_pay_handler(data)
-
-
-def one_time_pay_handler(data):
-    payment_model = OneTimePayment.objects.get(payment_id=data['object']['id'])
+    try:
+        payment_model = OneTimePayment.objects.get(payment_id=data['object']['id'])
+    except ObjectDoesNotExist:
+        payment_model = SubscribePayment.objects.get(payment_id=data['object']['id'])
     payment = Payment.find_one(payment_model.payment_id)
     payment_data = json.loads(payment.json())
+    if payment_data['metadata']['payment'] == 'one-time':
+        one_time_pay_handler(payment_data, payment_model)
+    if payment_data['metadata']['payment'] == 'subscribe':
+        subscribe_pay_handler(payment_data, payment_model)
+
+
+def one_time_pay_handler(payment_data, payment_model):
     payment_model.status = payment_data['status']
     payment_model.paid = payment_data['paid']
     payment_model.save()
@@ -35,9 +50,7 @@ def one_time_pay_handler(data):
     return HttpResponse(status=200)
 
 
-def subscribe_pay_handler(data):
-    payment_model = SubscribePayment.objects.get(payment_id=data['object']['id'])
-    payment = Payment.find_one(payment_model.payment_id)
+def subscribe_pay_handler(payment, payment_model):
     payment_data = json.loads(payment.json())
     payment_model.status = payment_data['status']
     payment_model.paid = payment_data['paid']
