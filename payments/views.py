@@ -50,7 +50,7 @@ def one_time_pay_handler(payment_data, payment_model):
     host = 'reportcar.ru'
     create_car_info_celery.delay(protocol, host, payment_model.profile.email,
                                  payment_data['metadata']['type'], payment_data['metadata']['number'])
-    return HttpResponse(status=200)
+    return
 
 
 def subscribe_pay_handler(payment, payment_model):
@@ -70,7 +70,7 @@ def subscribe_pay_handler(payment, payment_model):
         step='start',
         step_date_expired=timezone.localdate() + timedelta(3)
     )
-    return HttpResponse(status=200)
+    return
 
 
 def pay_redirect(request):

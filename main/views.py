@@ -34,16 +34,13 @@ def pricing(request):
     if request.method == 'POST':
         type_name = json.loads(request.body)['typename']
         rate = RateType.objects.get(title=type_name)
-        try:
-            payment = json.loads(get_subscribe_payment(request, request.META['HTTP_HOST'], rate))
-            SubscribePayment.objects.create(
-                profile=Profiles.object.get(email=request.user.email),
-                payment_id=payment['id'],
-                status=payment['status'],
-                paid=payment['paid']
-            )
-        except Exception as e:
-            print(e)
+        payment = json.loads(get_subscribe_payment(request, request.META['HTTP_HOST'], rate))
+        SubscribePayment.objects.create(
+            profile=Profiles.object.get(email=request.user.email),
+            payment_id=payment['id'],
+            status=payment['status'],
+            paid=payment['paid']
+        )
         return JsonResponse({'url': payment['confirmation']['confirmation_url']})
     rates = RateType.objects.all()
     context = {
