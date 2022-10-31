@@ -44,7 +44,7 @@ def one_time_pay_handler(payment_data, payment_model):
     payment_model.paid = payment_data['paid']
     payment_model.save()
     protocol = 'https://'
-    host = 'reportcar.ru/'
+    host = 'reportcar.ru'
     create_car_info_celery.delay(protocol, host, payment_model.profile.email,
                                  payment_data['metadata']['type'], payment_data['metadata']['number'])
     return HttpResponse(status=200)
