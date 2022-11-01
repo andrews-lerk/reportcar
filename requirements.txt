@@ -12,6 +12,8 @@ click-repl==0.2.0
 Deprecated==1.2.13
 distro==1.8.0
 Django==4.1.1
+django-ckeditor==6.5.1
+django-js-asset==2.0.0
 flower==1.2.0
 humanize==4.4.0
 idna==3.4
