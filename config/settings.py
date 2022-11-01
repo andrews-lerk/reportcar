@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'ckeditor',
+
     'main',
     'profiles',
     'reports',
@@ -164,6 +166,10 @@ LOGGING = {
 
 # tokens
 API_CLOUD_TOKEN = 'ae3b2fa0e7d3f7dec39b99cb59421e81'
+
+
+# ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 try:
     from .local_settings import *

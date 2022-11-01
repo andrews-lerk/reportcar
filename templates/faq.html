@@ -48,7 +48,7 @@
                                 </div>
                                 <div id="collapse{{ forloop.counter }}" class="{% if forloop.counter == 1 %}collapse show{% else %}collapse{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordion">
                                     <div class="card-body position-relative">
-                                        {{ f.answer }}
+                                        {{ f.answer|safe }}
                                     </div>
                                 </div>
                             </div>
