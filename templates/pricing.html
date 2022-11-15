@@ -31,6 +31,9 @@
             <div class="heading-separator"></div>
         </div>
         <div data-wow-delay="200ms">
+            <div id="subscribe-error" class="bd-callout-warning" style="display: none;">
+                    <h3 class="mb-3 h4">У вас уже есть активная подписка</h3>
+                </div>
             {% for rate in rates %}
             <div class="card border-color-extra-light-gray border-radius-5">
                 <div class="row g-0 align-items-center">
@@ -44,7 +47,9 @@
                                     </span>
                                 </span>
                                 {% if request.user.is_authenticated %}
-                                <button class="butn radius md butn-white" type="button" onclick="subscribe('{{ rate.title }}')">Выбрать</button>
+                                <button id="choice{{ forloop.counter }}" class="butn radius md butn-white" type="button" onclick="recurrentPayHandler('{{ rate.title }}',
+                                                                                        '{{ csrf_token }}', {{ forloop.counter }})">Выбрать</button>
+                                <div id="loader{{ forloop.counter }}" class="quform-loading-wrap"><span class="quform-loading"></span></div>
                                 {% else %}
                                 <a href="{% url 'login' %}" class="butn radius md butn-white">Выбрать</a>
                                 {% endif %}
@@ -82,11 +87,26 @@
 
 {% block extrascripts %}
 <script>
-    const URL =
+    const pricingURL =
         {% if request.is_secure %}"https://"{% else %}"http://"{% endif %}
         + "{{ request.META.HTTP_HOST }}"
         + "{% url 'pricing' %}"
-    const token = '{{ csrf_token }}'
+
+    const recurrentCallbackURL =
+        {% if request.is_secure %}"https://"{% else %}"http://"{% endif %}
+        + "{{ request.META.HTTP_HOST }}"
+        + "{% url 'recurrent-callback' %}"
+
+    const redirectURL =
+        {% if request.is_secure %}"https://"{% else %}"http://"{% endif %}
+        + "{{ request.META.HTTP_HOST }}"
+        + "{% url 'lk' %}"+"?redirect=successSubscribe"
+
+    const redirectURLfail =
+        {% if request.is_secure %}"https://"{% else %}"http://"{% endif %}
+        + "{{ request.META.HTTP_HOST }}"
+        + "{% url 'lk' %}"+"?redirect=fail"
 </script>
-<script src="{% static 'scripts/subscribeAJAX.js' %}"></script>
+    <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
+    <script src="{% static 'scripts/recurrentPayments.js' %}"></script>
 {% endblock extrascripts %}

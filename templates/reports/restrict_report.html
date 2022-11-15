@@ -70,7 +70,7 @@
                             {% csrf_token %}
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <div class="quform-submit-inner">
-                                    <button id="submit-button-pay" class="butn butn-primary md" type="button" onclick="payauth()"><span>Перейти к оплате</span></button>
+                                    <button id="submit-button-pay" class="butn butn-primary md" type="button" onclick="payauth({{ price }})"><span>Перейти к оплате</span></button>
                                 </div>
                             </div>
                         </form>
@@ -119,8 +119,21 @@
         const redirectURL =
         {% if request.is_secure %}"https://"{% else %}"http://"{% endif %}
         + "{{ request.META.HTTP_HOST }}"
-        + "{% url 'lk' %}"+"?redirect=true"
+        + "{% url 'lk' %}"+"?redirect=success"
+
+        const redirectURLfail =
+        {% if request.is_secure %}"https://"{% else %}"http://"{% endif %}
+        + "{{ request.META.HTTP_HOST }}"
+        + "{% url 'lk' %}"+"?redirect=fail"
+
+        const callbackURL =
+        {% if request.is_secure %}"https://"{% else %}"http://"{% endif %}
+        + "{{ request.META.HTTP_HOST }}"
+        + "{% url 'one-time-callback' %}"
     </script>
     <script src="{% static 'scripts/loginAJAX.js' %}"></script>
     <script src="{% static 'scripts/sendCarCheckRequestAJAX.js' %}"></script>
+    <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
+    <script src="{% static 'scripts/payments.js' %}"></script>
+
 {% endblock extrascripts %}

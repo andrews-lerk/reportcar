@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--5$#kbt7h8a@ln=26v)n&i8t%w!%=pu1_bmv&b+%m+i^3((i&7'
+FERNET_SECRET_KEY = 'Yl5YkF6n7dnfj3i0eMfwJTwxt14cR73BhRFGc62-w1A='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -107,11 +108,10 @@ AUTHENTICATION_BACKENDS = ('profiles.backends.AuthBackend', 'django.contrib.auth
 # Internationalization
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
-USE_TZ = True
 
 
 # static, media
@@ -166,7 +166,8 @@ LOGGING = {
 
 # tokens
 API_CLOUD_TOKEN = 'ae3b2fa0e7d3f7dec39b99cb59421e81'
-
+CLOUDPAYMENTS_PUBLIC_ID = 'pk_a1a62cc783c60a4c94626630db58f'
+CLOUDPAYMENTS_API_PASSWORD = '8af723e3b85c8cd1e7d3afd77864cec9'
 
 # ckeditor
 CKEDITOR_UPLOAD_PATH = "uploads/"

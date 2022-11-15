@@ -2,6 +2,6 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('pay-callback', pay_callback, name='pay-callback'),
-    path('pay-redirect', pay_redirect, name='pay-redirect')
+    path('on-one-time-complete-callback', on_one_time_complete_callback, name='one-time-callback'),
+    path('on-recurrent-complete-callback', on_recurrent_complete_callback, name='recurrent-callback')
 ]

@@ -50,18 +50,47 @@
                                 <mark>{{ subscribe.rate_type.title }}</mark>
                             </li>
                             <li>
-                                Отчетов осталось: <mark>{{ subscribe.report_counter }}</mark>
+                                Статус: <mark>{{ subscribe.get_status_display }}</mark>
                             </li>
                             <li>
-                                Этап подписки: <mark>{{ subscribe.get_step_display }}</mark><br>
+                                Отчетов осталось: <mark>{{ subscribe.reports_counter }}</mark>
                             </li>
                             <li>
-                                Дата следующего начисления отчетов: <mark>{{ subscribe.step_date_expired }}</mark>
+                                Этап подписки: <mark>{{ subscribe.get_process_display }}</mark><br>
                             </li>
+                            {% if subscribe.process == '3' %}
+                            <li>
+                                Дата окончания подписки: <mark>{{ subscribe.process_date_expired }} по МСК</mark>
+                            </li>
+                            {% else %}
+                            <li>
+                                Дата следующего списания: <mark>{{ subscribe.process_date_expired }} по МСК</mark>
+                            </li>
+                            {% endif %}
                         </ul>
                         <div class="quform-submit-inner">
                             <p></p>
-                            <a href="{% url 'pricing' %}"><button class="butn butn-style1 sm" type="button"><span>Отменить подписку</span></button></a>
+                           <button type="button" class="butn butn-style1 sm" data-bs-toggle="modal" data-bs-target="#centered">
+                                    Отменить подписку
+                                </button>
+                                <!-- Vertically centered -->
+                                <div class="modal fade" id="centered" tabindex="-1" aria-labelledby="centeredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="centeredLabel">Отменить подписку</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Внимание! Все неиспользованные отчеты сгорят!
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                <a href="{% url 'remove-subscribe' %}"><button type="button" class="btn btn-primary">Отменить подписку</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
                     </aside>
@@ -100,6 +129,11 @@
                 {% elif redirect == 'fail' %}
                 <div class="bd-callout-warning">
                     <h3 class="mb-3 h4">Оплата прошла не успешно</h3>
+                    <u><a href="{% url 'lk' %}">Закрыть</a></u>
+                </div>
+                {% elif redirect == 'successSubscribe' %}
+                <div class="bd-callout-warning">
+                    <h3 class="mb-3 h4">Подписка успешно оформлена</h3>
                     <u><a href="{% url 'lk' %}">Закрыть</a></u>
                 </div>
                 {% endif %}

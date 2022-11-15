@@ -1,6 +1,8 @@
 import time
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.utils import timezone
+
 from .forms import *
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -10,14 +12,14 @@ from profiles.models import Profiles
 from django.contrib.auth import login, authenticate, logout
 from django.core.exceptions import ObjectDoesNotExist
 from reports.utils import get_restrict_car_info
-from django.core.mail import send_mail
 from config.settings import EMAIL_HOST_USER
 from reports.models import Vehicle, VinDecode, VehiclePeriods, Dtp, \
     Restrict, Wanted, Pledges, Reviews, Taxi, \
     CustomsClearance, RNISRegister, Osago, DiagnosticsActive, DiagnosticsExpired, Image
-from .tasks import create_car_info_celery
+from .tasks import create_car_info_celery, send_mail_
 from .models import FAQ, ReportsViewCounter
-from payments.services import get_payment, get_subscribe_payment
+from payments.models import RateType, Order
+from payments.utils import random_invoice_id, activate_subscribe
 from payments.models import *
 
 
@@ -32,19 +34,32 @@ def index(request):
 
 def pricing(request):
     if request.method == 'POST':
-        type_name = json.loads(request.body)['typename']
-        rate = RateType.objects.get(title=type_name)
-        payment = json.loads(get_subscribe_payment(request, request.META['HTTP_HOST'], rate))
-        SubscribePayment.objects.create(
-            profile=Profiles.object.get(email=request.user.email),
-            payment_id=payment['id'],
-            status=payment['status'],
-            paid=payment['paid']
-        )
-        return JsonResponse({'url': payment['confirmation']['confirmation_url']})
+        data = json.loads(request.body)
+        try:
+            type = data['type']
+        except:
+            return HttpResponse(status=404)
+        try:
+            rates = RateType.objects.get(title=type)
+        except:
+            return HttpResponse(status=404)
+        subscribe = Subscribe.objects.filter(profile=Profiles.object.get(email=request.user.email))
+        if len(subscribe) > 0:
+            subscribe = True
+        else:
+            subscribe = False
+        response = {
+            'type': type,
+            'startPrice': rates.start_price,
+            'user': request.user.email,
+            'invoiceId': random_invoice_id(),
+            'subscribe': subscribe
+        }
+        return JsonResponse(response)
     rates = RateType.objects.all()
     context = {
-        'rates': rates
+        'rates': rates,
+        'time': timezone.now()
     }
     return render(request, 'pricing.html', context)
 
@@ -155,8 +170,9 @@ def login_view(request):
 def get_or_create_user(email):
     password = Profiles.object.make_random_password(length=6, allowed_chars='0123456789')
     message = f'{password} - ваш код подтверждения для сайта reportcar.ru'
-    send_mail(subject='Код подтверждения', message=message,
-              from_email=EMAIL_HOST_USER, recipient_list=[email], fail_silently=True)
+    send_mail_.delay(subject='Код подтверждения',
+                     text=message,
+                     email=email)
     try:
         user = Profiles.object.get(email=email)
         user.set_password(password)
@@ -183,28 +199,24 @@ def auth(request):
 
 def pay_auth(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
         if not request.user.is_authenticated:
-            email = data['email']
-            passw = data['pass']
+            data = json.loads(request.body)
+            try:
+                email = data['email']
+                passw = data['pass']
+            except:
+                return HttpResponse(status=404)
             user = authenticate(request=request, email=email,
                                 password=passw)
             if user is None:
-                return HttpResponse(status=400)
+                return HttpResponse(status=404)
             login(request, user)
-        type = data['type']
-        number = data['number']
-        host = request.META['HTTP_HOST']
-        payment = get_payment(request, host, type, number)
-        payment_data = json.loads(payment)
-        url = payment_data['confirmation']['confirmation_url']
-        OneTimePayment.objects.create(
+        invoice_id = random_invoice_id()
+        Order.objects.create(
             profile=Profiles.object.get(email=request.user.email),
-            payment_id=payment_data['id'],
-            status=payment_data['status'],
-            paid=False
+            invoice_id=invoice_id
         )
-        return JsonResponse({'url': url})
+        return JsonResponse({'user': request.user.email, 'invoice_id': invoice_id})
     return HttpResponse(status=400)
 
 
@@ -214,15 +226,33 @@ def logout_(request):
 
 
 def check_car(request):
-    form = AuthForm()
     type = request.GET.get('type')
     if type == 'None':
         type = 'GOS'
     number = request.GET.get('number')
+    price = 99
+    subscribe = Subscribe.objects.filter(profile=Profiles.object.get(email=request.user.email))
+    if len(subscribe) == 1:
+        subscribe = subscribe.first()
+        if subscribe.process == "0" and subscribe.reports_counter == 1 and subscribe.status != '-1':
+            create_car_info_celery.delay('https://', 'reportcar.ru', request.user.email, type, number)
+            print('activation subscribe')
+            activate_subscribe(subscribe)
+            return redirect(reverse('lk') + '?redirect=success')
+        if subscribe.reports_counter > 0 and subscribe.status != '-1':
+            create_car_info_celery.delay('https://', 'reportcar.ru', request.user.email, type, number)
+            subscribe.reports_counter -= 1
+            subscribe.save()
+            print('-1 report')
+            return redirect(reverse('lk') + '?redirect=success')
+        else:
+            price = 59 if subscribe.status == '1' else 99
+    form = AuthForm()
     context = {
         'form': form,
         'type': type,
-        'number': number
+        'number': number,
+        'price': price
     }
     return render(request, 'reports/restrict_report.html', context)
 
@@ -258,11 +288,10 @@ def lk(request):
     reports = list(Vehicle.objects.filter(profile=request.user))
     reports.reverse()
     reports = reports[:3]
-    subscribe = RateSubscribe.objects.filter(payment_method__profile=Profiles.object.get(email=request.user.email))
-    if len(subscribe)==0:
+    try:
+        subscribe = Subscribe.objects.get(profile=Profiles.object.get(email=request.user.email))
+    except:
         subscribe = False
-    else:
-        subscribe = subscribe.first()
     context = {
         'reports': reports,
         'subscribe': subscribe
@@ -285,3 +314,11 @@ def reports_list(request):
         'reports': reports
     }
     return render(request, 'reports/reports_list.html', context)
+
+
+@login_required()
+def remove_subscribe(request):
+    subscribe = Subscribe.objects.get(profile=Profiles.object.get(email=request.user.email))
+    subscribe.payment_method.delete()
+    subscribe.delete()
+    return redirect(lk)

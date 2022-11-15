@@ -2,49 +2,80 @@ from django.db import models
 from profiles.models import Profiles
 
 
-class OneTimePayment(models.Model):
+class Order(models.Model):
     profile = models.ForeignKey(Profiles, on_delete=models.CASCADE)
-
-    payment_id = models.CharField('ID платежа', max_length=511)
-    status = models.CharField('Статус платежа', max_length=31)
-    date = models.DateTimeField(auto_now_add=True)
-    paid = models.BooleanField('Оплачено?')
-
-    class Meta:
-        verbose_name = 'Разовый платеж'
-        verbose_name_plural = 'Разовые платежи'
+    invoice_id = models.CharField('ID заказа', max_length=31)
+    status = models.BooleanField('Оплачено?', default=False)
+    is_report_ready = models.BooleanField('Отчет составлен?', default=False)
 
     def __str__(self):
-        return f'Платеж для {self.profile}, ID - {self.payment_id}'
-
-
-class SubscribePayment(models.Model):
-    profile = models.ForeignKey(Profiles, on_delete=models.CASCADE)
-
-    payment_id = models.CharField('ID платежа', max_length=511)
-    status = models.CharField('Статус платежа', max_length=31)
-    date = models.DateTimeField(auto_now_add=True)
-    paid = models.BooleanField('Оплачено?')
-
-    def __str__(self):
-        return f'Автоплатеж для {self.profile}, ID - {self.payment_id}'
+        return f'Платеж для  {self.profile.email}'
 
     class Meta:
-        verbose_name = 'Платеж тарифа'
-        verbose_name_plural = 'Платежи тарифов'
+        verbose_name = 'Платеж'
+        verbose_name_plural = 'Платежи'
 
 
-class SubscribePaymentMethod(models.Model):
+class RecurrentOrder(models.Model):
+    PAYMENT_PURPOSE = (
+        (0, 'Оплата 3-х дневного периода'),
+        (1, 'Оплата 1-ой недели'),
+        (2, 'Оплата 2-ой недели'),
+        (3, 'Оплата 3-ей недели'),
+    )
+
+    profile = models.ForeignKey(Profiles, on_delete=models.CASCADE)
+    subscribe = models.ForeignKey('Subscribe', on_delete=models.SET_NULL, null=True)
+    invoice_id = models.CharField('ID заказа', max_length=31)
+    payment_purpose = models.CharField('Назначение платежа', choices=PAYMENT_PURPOSE, max_length=255)
+    status = models.BooleanField('Оплачено?', default=False)
+
+    def __str__(self):
+        return f'Платеж подписки'
+
+    class Meta:
+        verbose_name = 'Платеж подписки'
+        verbose_name_plural = 'Платежи подписок'
+
+
+class PaymentMethod(models.Model):
+    profile = models.ForeignKey(Profiles, on_delete=models.CASCADE)
+    encrypted_token = models.TextField('Зашифрованный токен карты')
+
+    def __str__(self):
+        return f'Метод оплаты пользователя {self.profile.email}'
+
+    class Meta:
+        verbose_name = 'Метод оплаты'
+        verbose_name_plural = 'Методы оплаты'
+
+
+class Subscribe(models.Model):
+    PROCESS = (
+        ('0', '3 пробных дня'),
+        ('1', '1-я неделя подписки'),
+        ('2', '2-я неделя подписки'),
+        ('3', '3-я неделя подписки'),
+    )
+    STATUS = (
+        ('1', 'Активна'),
+        ('-1', 'Приостановлена'),
+    )
+
     profile = models.OneToOneField(Profiles, on_delete=models.CASCADE)
-    payment_method_id = models.CharField('ID сохраненного метода оплаты', max_length=511)
-    saved = models.BooleanField()
+    rate_type = models.ForeignKey('RateType', on_delete=models.CASCADE)
+    process = models.CharField('Текущий этап подписки', choices=PROCESS, max_length=255)
+    process_date_expired = models.DateTimeField('Дата/время окончания текущего этапа подписки')
+    status = models.CharField('Статус подписки', choices=STATUS, max_length=255)
+    reports_counter = models.IntegerField()
+    payment_method = models.ForeignKey(PaymentMethod, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Способ оплаты для {self.profile}'
+        return f'Подписка пользователя {self.profile.email}'
 
     class Meta:
-        verbose_name = 'Сохраненный способ оплаты'
-        verbose_name_plural = 'Сохраненные способы оплаты'
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
 
 
 class RateType(models.Model):
@@ -59,26 +90,3 @@ class RateType(models.Model):
     class Meta:
         verbose_name = 'Тариф'
         verbose_name_plural = 'Тарифы'
-
-
-class RateSubscribe(models.Model):
-    STEPS = (
-        ('start', '3 пробных дня'),
-        ('1week', '1-ая неделя тарифа из 3'),
-        ('2week', '2-ая неделя тарифа из 3'),
-        ('3week', '3-я неделя тарифа из 3'),
-    )
-    payment_method = models.OneToOneField(SubscribePaymentMethod, on_delete=models.CASCADE)
-    rate_type = models.ForeignKey(RateType, on_delete=models.CASCADE)
-    report_counter = models.IntegerField('Оставшеейся число отчетов')
-    step = models.CharField('Текущий этап подписки', choices=STEPS, max_length=255)
-    step_date_expired = models.DateField('Дата окончания текущего этапа подписки')
-
-    def __str__(self):
-        return f'Тариф для {self.payment_method.profile}'
-
-    class Meta:
-        verbose_name = 'Подписка'
-        verbose_name_plural = 'Подписки'
-
-

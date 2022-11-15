@@ -35,4 +35,3 @@ urllib3==1.26.12
 vine==5.0.0
 wcwidth==0.2.5
 wrapt==1.14.1
-yookassa==2.3.2

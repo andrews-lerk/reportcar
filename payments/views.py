@@ -1,78 +1,86 @@
-import json
+import datetime
 
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from main.tasks import create_car_info_celery
+from django.utils import timezone
+
 from .models import *
 from profiles.models import Profiles
-from yookassa import Payment
-from django.utils import timezone
-from datetime import timedelta
-from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ObjectDoesNotExist
+from main.tasks import create_car_info_celery
+import json
+from .utils import get_token_by_invoice_id
+from main.tasks import send_mail_
 
 
-def get_ip_address(request):
-    user_ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
-    if user_ip_address:
-        ip = user_ip_address.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-
-
-@csrf_exempt
-def pay_callback(request):
-    ip_ = get_ip_address(request)
-    print(f'ip from {ip_}')
+def on_one_time_complete_callback(request):
+    if not request.user.is_authenticated:
+        return HttpResponse(status=404)
+    profile = Profiles.object.get(email=request.user.email)
     data = json.loads(request.body)
     try:
-        payment_model = OneTimePayment.objects.get(payment_id=data['object']['id'])
-    except ObjectDoesNotExist:
-        payment_model = SubscribePayment.objects.get(payment_id=data['object']['id'])
-    payment = Payment.find_one(payment_model.payment_id)
-    payment_data = json.loads(payment.json())
-    if payment_data['metadata']['payment'] == 'one-time':
-        one_time_pay_handler(payment_data, payment_model)
-        return HttpResponse(status=200)
-    if payment_data['metadata']['payment'] == 'subscribe':
-        subscribe_pay_handler(payment_data, payment_model)
-        return HttpResponse(status=200)
+        invoice_id = data['invoice_id']
+        type = data['type']
+        number = data['number']
+        user = data['user']
+        success = data['results']['success']
+        order = Order.objects.get(invoice_id=invoice_id, profile=profile)
+    except:
+        return HttpResponse(status=404)
+    if not success:
+        return HttpResponse(status=400)
+    if order.is_report_ready:
+        return HttpResponse(status=400)
+    if request.user.email != user:
+        return HttpResponse(status=400)
+    host = 'reportcar.ru'
+    protocol = 'https://'
+    create_car_info_celery.delay(protocol, host, user, type, number)
+    order.status = True
+    order.is_report_ready = True
+    order.save()
     return HttpResponse(status=200)
 
 
-def one_time_pay_handler(payment_data, payment_model):
-    payment_model.status = payment_data['status']
-    payment_model.paid = payment_data['paid']
-    payment_model.save()
-    protocol = 'https://'
-    host = 'reportcar.ru'
-    create_car_info_celery.delay(protocol, host, payment_model.profile.email,
-                                 payment_data['metadata']['type'], payment_data['metadata']['number'])
-    return
-
-
-def subscribe_pay_handler(payment, payment_model):
-    payment_data = json.loads(payment.json())
-    payment_model.status = payment_data['status']
-    payment_model.paid = payment_data['paid']
-    payment_model.save()
-    payment_method = SubscribePaymentMethod.objects.create(
-        profile=payment_model.profile,
-        payment_method_id=payment_data['payment_method']['id'],
-        saved=payment_data['payment_method']['saved']
+def on_recurrent_complete_callback(request):
+    if not request.user.is_authenticated:
+        return HttpResponse(status=404)
+    data = json.loads(request.body)
+    try:
+        success = data['results']['success']
+        email = data['results']['email']
+    except:
+        return HttpResponse(status=404)
+    if request.user.email != email:
+        return HttpResponse(status=404)
+    if not success:
+        return HttpResponse(status=404)
+    profile = Profiles.object.get(email=request.user.email)
+    rate_type = RateType.objects.get(title=data['options']['data']['type'])
+    card_token = get_token_by_invoice_id(data['options']['invoiceId'])
+    if card_token is None:
+        return HttpResponse(status=404)
+    payment_method = PaymentMethod.objects.create(
+        profile=profile,
+        encrypted_token=card_token
     )
-    RateSubscribe.objects.create(
+    subscribe = Subscribe.objects.create(
+        profile=profile,
+        rate_type=rate_type,
+        process='0',
+        status='1',
+        reports_counter=3,
         payment_method=payment_method,
-        rate_type=RateType.objects.get(title=payment_data['metadata']['typename']),
-        report_counter=3,
-        step='start',
-        step_date_expired=timezone.localdate() + timedelta(3)
+        process_date_expired=timezone.now()+datetime.timedelta(3)
     )
-    return
-
-
-def pay_redirect(request):
-    return redirect(reverse('lk') +
-                    f'?redirect=success')
+    RecurrentOrder.objects.create(
+        profile=profile,
+        subscribe=subscribe,
+        invoice_id=data['options']['invoiceId'],
+        payment_purpose=0,
+        status=True
+    )
+    send_mail_.delay(subject='Подписка успешно оформлена',
+                     text=f'Подписка на тариф {rate_type.title} успешно оформлена.\n'
+                          f'Вам начислено 3 отчета на 3 дня, подписка автоматически активируется по истечении 3-х дней или раньше'
+                          f', если вы истратите 3 отчета.',
+                     email=email)
+    return HttpResponse(status=200)

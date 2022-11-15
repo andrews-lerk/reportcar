@@ -129,7 +129,7 @@ function auth() {
     })
 }
 
-function payauth() {
+function payauth (price) {
 
     let button = document.querySelector('#submit-button')
     button.style = "display: none;"
@@ -163,7 +163,7 @@ function payauth() {
 
     if (response.ok) {
         return response.json().then(data => {
-        window.location.href = data.url
+        pay(type, number, data.user, data.invoice_id, token, price)
         })
        } else {
        buttonReload.style = ""
