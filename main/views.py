@@ -231,7 +231,10 @@ def check_car(request):
         type = 'GOS'
     number = request.GET.get('number')
     price = 99
-    subscribe = Subscribe.objects.filter(profile=Profiles.object.get(email=request.user.email))
+    if request.user.is_authenticated:
+        subscribe = Subscribe.objects.filter(profile=Profiles.object.get(email=request.user.email))
+    else:
+        subscribe = []
     if len(subscribe) == 1:
         subscribe = subscribe.first()
         if subscribe.process == "0" and subscribe.reports_counter == 1 and subscribe.status != '-1':
