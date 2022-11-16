@@ -75,7 +75,7 @@ function sendPayRequest() {
 
         buttonReload.style = ""
         button.style = ""
-        button.setAttribute('onclick','payauth()')
+        button.setAttribute('onclick','payauth(99)')
         button.setAttribute('type','button')
         button.innerHTML = '<span>Перейти к оплате</span>'
 
