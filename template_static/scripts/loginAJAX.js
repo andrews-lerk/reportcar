@@ -131,6 +131,15 @@ function auth() {
 
 function payauth (price) {
 
+    let agree1 = document.querySelector('#flexCheckDefault2')
+    let agree2 = document.querySelector('#flexCheckDefault1')
+    console.log(agree2.checked)
+    console.log(agree1.checked)
+    if (!agree1.checked && !agree2.checked){
+        document.querySelector('#agree_').style = ""
+        document.querySelector('#agree2_').style = ""
+        return
+    }
     let button = document.querySelector('#submit-button')
     button.style = "display: none;"
     let buttonReload = document.querySelector('#reload-code')
