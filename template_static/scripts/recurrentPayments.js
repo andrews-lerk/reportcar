@@ -1,8 +1,16 @@
 function recurrentPayHandler (type, csrf_token, forloop) {
-    var loader = document.querySelector('#loader'+forloop)
-    var button = document.querySelector('#choice'+forloop)
-    loader.setAttribute('style','display: block;')
-    button.setAttribute('style','display: none;')
+//    var loader = document.querySelector('#loader'+forloop)
+//    var button = document.querySelector('#choice'+forloop)
+//    loader.setAttribute('style','display: block;')
+//    button.setAttribute('style','display: none;')
+    var check1 = document.querySelector('#flexCheckDefault1')
+    var check2 = document.querySelector('#flexCheckDefault2')
+    var check3 = document.querySelector('#flexCheckDefault3')
+    if (!check1.checked || !check2.checked || !check3.checked) {
+        var agree = document.querySelector('#agree_')
+        agree.setAttribute('style','')
+        return
+    }
     const headers = {
     'Content-Type': 'application/json',
     'X-CSRFToken': csrf_token
@@ -38,6 +46,8 @@ function recurrentPayHandler (type, csrf_token, forloop) {
 
 
 function recurrentPay (type, startPrice, user, csrf_token, invoiceId, forloop) {
+    var modal = document.querySelector('#centered')
+    modal.setAttribute('style','display: none;')
     var widget = new cp.CloudPayments();
     widget.pay('charge',
     {
@@ -60,6 +70,7 @@ function recurrentPay (type, startPrice, user, csrf_token, invoiceId, forloop) {
             },
 
            onFail: function (reason, options) {
+                document.location.href=pricingURL
                 var loader = document.querySelector('#loader'+forloop)
                 var button = document.querySelector('#choice'+forloop)
                 loader.setAttribute('style','display: none;')

@@ -47,9 +47,53 @@
                                     </span>
                                 </span>
                                 {% if request.user.is_authenticated %}
-                                <button id="choice{{ forloop.counter }}" class="butn radius md butn-white" type="button" onclick="recurrentPayHandler('{{ rate.title }}',
-                                                                                        '{{ csrf_token }}', {{ forloop.counter }})">Выбрать</button>
-                                <div id="loader{{ forloop.counter }}" class="quform-loading-wrap"><span class="quform-loading"></span></div>
+<!--                                <button id="choice{{ forloop.counter }}" class="butn radius md butn-white" type="button" onclick="recurrentPayHandler('{{ rate.title }}',-->
+<!--                                                                                        '{{ csrf_token }}', {{ forloop.counter }})">Выбрать</button>-->
+<!--                                <div id="loader{{ forloop.counter }}" class="quform-loading-wrap"><span class="quform-loading"></span></div>-->
+                                <button type="button" class="butn butn-style1 sm" data-bs-toggle="modal" data-bs-target="#centered">
+                                    Выбрать
+                                </button>
+                                <!-- Vertically centered -->
+                                <div class="modal fade" id="centered" tabindex="-1" aria-labelledby="centeredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="centeredLabel">Оформление подписки {{ rate.title }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                                                  <label class="form-check-label" for="flexCheckDefault3">
+                                                      Согласен с условиями <a href="{% url 'tariffs' %}" style="color: orange;'">Тарифного плана</a> и
+                                                      автосписанием в размере {{ rate.base_price }} ₽ в неделю
+                                                  </label>
+                                                </div>
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                                                  <label class="form-check-label" for="flexCheckDefault2">
+                                                      Согласен с условиями <a href="{% url 'offer' %}" style="color: orange;'">Публичной оферты</a>
+                                                  </label>
+                                                </div>
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                                  <label class="form-check-label" for="flexCheckDefault1">
+                                                      Согласен с условиями <a href="{% url 'politics' %}" style="color: orange;'">Политики конфедициальности</a>
+                                                  </label>
+                                                </div>
+                                                <div class="alert alert-danger alert-dismissible" style="display: none;" id="agree_">
+                                                    Подтвердите согласие!
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                             </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                <button type="button" class="btn btn-primary" onclick="recurrentPayHandler('{{ rate.title }}',
+                                                                                    '{{ csrf_token }}', {{ forloop.counter }})">Перейти к оплате</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 {% else %}
                                 <a href="{% url 'login' %}" class="butn radius md butn-white">Выбрать</a>
                                 {% endif %}
